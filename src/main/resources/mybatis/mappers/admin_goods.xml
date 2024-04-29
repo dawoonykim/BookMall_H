@@ -79,10 +79,10 @@
                                 GOODS_WRITER,
                                 GOODS_PUBLISHER,
                                 GOODS_PRICE,
+                                GOODS_SALES_PRICE,
                                 GOODS_POINT,
                                 GOODS_PUBLISHED_DATE,
                                 GOODS_TOTAL_PAGE,
-                                GOODS_ISBN,
                                 GOODS_ISBN,
                                 GOODS_DELIVERY_PRICE,
                                 GOODS_DELIVERY_DATE,
@@ -101,17 +101,17 @@
 					  			#{goodsPrice},
 					  			#{goodsSalesPrice},
 					  			#{goodsPoint},
-					  			#{goodsPublishedDate},
+					  			to_date(#{goodsPublishedDate},'YYYY-MM-DD'),
 					  			#{goodsTotalPage},
 					  			#{goodsIsbn},
 					  			#{goodsDeliveryPrice},
-					  			#{goodsDeliveryDate},
+					  			to_date(#{goodsDeliveryDate},'YYYY-MM-DD'),
 					  			#{goodsStatus},
 					  			#{goodsWriterIntro},
 								#{goodsIntro},
 					  			#{goodsPublisherComment},
 					  			#{goodsRecommendation },
-					  			#{goodsContentsOrder:VARCHAR}
+					  			#{goodsContentsOrder,jdbcType=OTHER}
                 )
             ]]>
     </insert>

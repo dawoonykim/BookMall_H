@@ -6,6 +6,8 @@ import com.bookMall.goods.vo.GoodsVO;
 import com.bookMall.goods.vo.ImageFileVO;
 import com.bookMall.member.vo.MemberVO;
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -31,31 +33,34 @@ import java.util.Map;
 public class AdminGoodsControllerImpl extends BaseController implements AdminGoodsController {
 
     private static final String CURR_IMAGE_REPO_PATH = "C:\\file_repo";
-
+    private final static Logger log = LoggerFactory.getLogger(AdminGoodsControllerImpl.class);
     @Autowired
     private AdminGoodsService adminGoodsService;
 
     @Override
     @RequestMapping(value = "/addNewGoods.do", method = RequestMethod.POST)
     public ResponseEntity addNewGoods(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
-
+        log.info("AdminGoodsControllerImpl addNewGoods 실행");
         multipartRequest.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charser=utf-8");
         String imageFileName = null;
+        log.info("AdminGoodsControllerImpl addNewGoods imageFileName : " + imageFileName);
 
         Map newGoodsMap = new HashMap();
         Enumeration enu = multipartRequest.getParameterNames();
-
+        log.info("AdminGoodsControllerImpl addNewGoods enu : " + enu);
         while (enu.hasMoreElements()) {
             String name = (String) enu.nextElement();
+            log.info("AdminGoodsControllerImpl addNewGoods name : " + name);
             String value = multipartRequest.getParameter(name);
+            log.info("AdminGoodsControllerImpl addNewGoods value : " + value);
             newGoodsMap.put(name, value);
         }
 
         HttpSession session = multipartRequest.getSession();
         MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
         String regId = memberVO.getMemberId();
-
+        log.info("AdminGoodsControllerImpl addNewGoods regId : " + regId);
         List<ImageFileVO> imageFileList = upload(multipartRequest);
         if (imageFileList != null && imageFileList.size() != 0) {
             for (ImageFileVO imageFileVO : imageFileList) {
@@ -65,17 +70,22 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
         }
 
         String message = null;
+        log.info("AdminGoodsControllerImpl addNewGoods message : " + message);
         ResponseEntity resEntity = null;
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.add("Content-Type", "text/html;charset=utf-8");
         try {
             int goodsId = adminGoodsService.addNewGoods(newGoodsMap);
+            log.info("AdminGoodsControllerImpl addNewGoods goodsId : " + goodsId);
 
             if (imageFileList != null && imageFileList.size() != 0) {
                 for (ImageFileVO imageFileVO : imageFileList) {
                     imageFileName = imageFileVO.getFileName();
+                    log.info("AdminGoodsControllerImpl addNewGoods imageFileName : " + imageFileName);
                     File srcFile = new File(CURR_IMAGE_REPO_PATH + "\\" + "temp" + "\\" + imageFileName);
+                    log.info("AdminGoodsControllerImpl addNewGoods srcFile : " + srcFile);
                     File destDir = new File(CURR_IMAGE_REPO_PATH + "\\" + goodsId);
+                    log.info("AdminGoodsControllerImpl addNewGoods destDir : " + destDir);
                     FileUtils.moveFileToDirectory(srcFile, destDir, true);
                 }
             }
@@ -84,6 +94,7 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
             message += " location.href='" + multipartRequest.getContextPath() + "/admin/goods/addNewGoodsForm.do';";
             message += ("</script>");
         } catch (Exception e) {
+            log.info("AdminGoodsControllerImpl addNewGoods Exception : " + e);
             if (imageFileList != null && imageFileList.size() != 0) {
                 for (ImageFileVO imageFileVO : imageFileList) {
                     imageFileName = imageFileVO.getFileName();
@@ -107,7 +118,7 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
     public ModelAndView adminGoodsMain(@RequestParam Map<String, String> dateMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
         String viewName = (String) request.getAttribute("viewName");
         ModelAndView mav = new ModelAndView(viewName);
-        HttpSession session=request.getSession();
+        HttpSession session = request.getSession();
         session.setAttribute("side_menu", "admin_mode");
 
         String fixedSearchPeriod = dateMap.get("fixedSearchPeriod");

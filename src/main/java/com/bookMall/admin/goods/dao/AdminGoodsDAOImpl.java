@@ -3,6 +3,8 @@ package com.bookMall.admin.goods.dao;
 import com.bookMall.goods.vo.GoodsVO;
 import com.bookMall.goods.vo.ImageFileVO;
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
@@ -16,9 +18,13 @@ public class AdminGoodsDAOImpl implements AdminGoodsDAO{
 
     @Autowired
     private SqlSession session;
+
+    private final static Logger log = LoggerFactory.getLogger(AdminGoodsDAOImpl.class);
     @Override
     public int insertNewGoods(Map newGoodsMap) throws DataAccessException {
+        log.info("AdminGoodsDAOImpl insertNewGoods 실행");
         session.insert("mapper.admin.goods.insertNewGoods", newGoodsMap);
+        log.info("AdminGoodsDAOImpl insertNewGoods insert 후");
         return Integer.parseInt((String) newGoodsMap.get("goodsId"));
     }
 
