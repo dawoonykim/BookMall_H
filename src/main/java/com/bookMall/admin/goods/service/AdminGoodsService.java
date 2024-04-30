@@ -9,4 +9,6 @@ public interface AdminGoodsService {
     public int addNewGoods(Map newGoodsMap) throws Exception;
 
     public List<GoodsVO> listNewGoods(Map condMap) throws Exception;
+
+    public Map goodsDetail(int goodsId) throws Exception;
 }

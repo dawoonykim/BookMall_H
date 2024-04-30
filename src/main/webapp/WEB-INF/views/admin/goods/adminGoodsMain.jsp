@@ -213,28 +213,28 @@ function  calcPeriod(search_period){
      <c:forEach var="item" items="${newGoodsList }">
 			 <TR>       
 				<TD>
-				  <strong>${item.goods_id }</strong>
+				  <strong>${item.goodsId }</strong>
 				</TD>
 				<TD >
-				 <a href="${pageContext.request.contextPath}/admin/goods/modifyGoodsForm.do?goods_id=${item.goods_id}">
-				    <strong>${item.goods_title } </strong>
+				 <a href="${pageContext.request.contextPath}/admin/goods/modifyGoodsForm.do?goodsId=${item.goodsId}">
+				    <strong>${item.goodsTitle } </strong>
 				 </a> 
 				</TD>
 				<TD>
-				<strong>${item.goods_writer }</strong> 
+				<strong>${item.goodsWriter }</strong>
 				</TD>
 				<TD >
-				   <strong>${item.goods_publisher }</strong> 
+				   <strong>${item.goodsPublisher }</strong>
 				</TD>
 				<td>
-				  <strong>${item.goods_sales_price }</strong>
+				  <strong>${item.goodsSalesPrice }</strong>
 				</td>
 				<td>
-				 <strong>${item.goods_credate }</strong> 
+				 <strong>${item.goodsCredate }</strong>
 				</td>
 				<td>
-				    <c:set var="pub_date" value="${item.goods_published_date}" />
-					   <c:set var="arr" value="${fn:split(pub_date,' ')}" />
+				    <c:set var="pub_date" value="${item.goodsPublishedDate}" />
+					   <c:set var="arr" value="${fn:split(pubDate,' ')}" />
 					<strong>
 					   <c:out value="${arr[0]}" />
 					</strong>

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,5 +43,15 @@ public class AdminGoodsServiceImpl implements AdminGoodsService {
     @Override
     public List<GoodsVO> listNewGoods(Map condMap) throws Exception {
         return adminGoodsDAO.selectNewGoodsList(condMap);
+    }
+
+    @Override
+    public Map goodsDetail(int goodsId) throws Exception {
+        Map goodsMap = new HashMap();
+        GoodsVO goodsVO = adminGoodsDAO.selectGoodsDetail(goodsId);
+        List imageFileList = adminGoodsDAO.selectGoodsImageFileList(goodsId);
+        goodsMap.put("goods", goodsVO);
+        goodsMap.put("imageFileList", imageFileList);
+        return goodsMap;
     }
 }

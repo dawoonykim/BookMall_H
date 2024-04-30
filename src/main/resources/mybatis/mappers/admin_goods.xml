@@ -111,7 +111,7 @@
 								#{goodsIntro},
 					  			#{goodsPublisherComment},
 					  			#{goodsRecommendation },
-					  			#{goodsContentsOrder,jdbcType=OTHER}
+					  			#{goodsContentsOrder,jdbcType=CLOB}
                 )
             ]]>
     </insert>
@@ -160,4 +160,95 @@
         where recNum between (#{section} - 1) * 100 + (#{pageNum} - 1) * 10 + 1 and (#{section} - 1) * 100 + (#{pageNum}) * 10
         ]]>
     </select>
+
+    <select id="selectGoodsDetail" parameterType="String" resultMap="goodsResult">
+        <![CDATA[
+        select g.*, to_char(g.GOODS_PUBLISHED_DATE, 'YYYY-MM-DD') as goodsPublishedDate, d.FILENAME
+        from  T_SHOPPING_GOODS g,
+              T_GOODS_DETAIL_IMAGE d
+        where g.GOODS_ID=d.GOODS_ID
+          and d.FILETYPE='main_image'
+          and g.GOODS_ID=#{goodsId}
+        order by g.GOODS_ID
+        ]]>
+    </select>
+
+    <select id="selectGoodsImageFileList" parameterType="String" resultMap="imageResult">
+        <![CDATA[
+        select * from T_GOODS_DETAIL_IMAGE
+        where GOODS_ID=#{goodsId}
+        order by IMAGE_ID asc
+        ]]>
+    </select>
+
+
+    <update id="updateGoodsInfo" parameterType="java.util.HashMap">
+        update T_SHOPPING_GOODS
+        <set>
+            <if test="goodsSort!='' and goodsSort!=null">
+                goodsSort=#{goodsSort}
+            </if>
+            <if test="goodsTitle!='' and goodsTitle!=null">
+                goods_title=#{goodsTitle}
+            </if>
+            <if test="goodsWriter!='' and goodsWriter!=null">
+                goods_writer=#{goodsWriter}
+            </if>
+            <if test="goodsPublisher!='' and goodsPublisher!=null">
+                goods_publisher=#{goodsPublisher}
+            </if>
+            <if test="goodsPrice!='' and goodsPrice!=null">
+                goods_price=#{goodsPrice}
+            </if>
+            <if test="goodsPublishedDate!='' and goodsPublishedDate!=null">
+                goods_published_date=#{goodsPublishedDate}
+            </if>
+            <if test="goodsSalesPrice!='' and goodsSalesPrice!=null">
+                goods_sales_price=#{goodsSalesPrice}
+            </if>
+            <if test="goodsPoint!='' and goodsPoint!=null">
+                goods_point=#{goodsPoint}
+            </if>
+            <if test="goodsTotalPage!='' and goodsTotalPage!=null">
+                goods_total_page=#{goodsTotalPage}
+            </if>
+            <if test="goodsIsbn!='' and goodsIsbn!=null">
+                goods_isbn=#{goodsIsbn}
+            </if>
+            <if test="goodsDeliveryPrice!='' and goodsDeliveryPrice!=null">
+                goods_delivery_price=#{goodsDeliveryPrice}
+            </if>
+            <if test="goodsDeliveryDate!='' and goodsDeliveryDate!=null">
+                goods_delivery_date=#{goodsDeliveryDate}
+            </if>
+            <if test="goodsStatus!='' and goodsStatus!=null">
+                goods_status=#{goodsStatus}
+            </if>
+            <if test="goodsWriterIntro!='' and goodsWriterIntro!=null">
+                goods_writer_intro=#{goodsWriterIntro}
+            </if>
+            <if test="goodsIntro!='' and goodsIntro!=null">
+                goods_intro=#{goodsIntro}
+            </if>
+            <if test="goodsPublisherComment!='' and goodsPublisherComment!=null">
+                goods_publisher_comment=#{goodsPublisherComment}
+            </if>
+            <if test="goodsRecommendation!='' and goodsRecommendation!=null">
+                goods_recommendation=#{goodsRecommendation}
+            </if>
+            <if test="goodsContentsOrder!='' and goodsContentsOrder!=null">
+                goods_contents_order=#{goodsContentsOrder}
+            </if>
+        </set>
+        where GOODS_ID=#{goodsId}
+    </update>
+    <update id="updateGoodsImage" parameterType="imageFileVO">
+        update T_GOODS_DETAIL_IMAGE
+        set FILENAME = #{fileName}
+        where GOODS_ID = #{goodsId}
+          and IMAGE_ID = #[imageId]
+    </update>
+
+
+
 </mapper>

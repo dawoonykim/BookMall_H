@@ -14,12 +14,12 @@ import java.util.List;
 import java.util.Map;
 
 @Repository("adminGoodsDAOImpl")
-public class AdminGoodsDAOImpl implements AdminGoodsDAO{
+public class AdminGoodsDAOImpl implements AdminGoodsDAO {
 
+    private final static Logger log = LoggerFactory.getLogger(AdminGoodsDAOImpl.class);
     @Autowired
     private SqlSession session;
 
-    private final static Logger log = LoggerFactory.getLogger(AdminGoodsDAOImpl.class);
     @Override
     public int insertNewGoods(Map newGoodsMap) throws DataAccessException {
         log.info("AdminGoodsDAOImpl insertNewGoods 실행");
@@ -30,9 +30,11 @@ public class AdminGoodsDAOImpl implements AdminGoodsDAO{
 
     @Override
     public void insertGoodsImageFile(List fileList) throws DataAccessException {
+        log.info("AdminGoodsDAOImpl insertGoodsImageFile 실행");
         for (int i = 0; i < fileList.size(); i++) {
             ImageFileVO imageFileVO = (ImageFileVO) fileList.get(i);
-            session.insert("mapper.admin.goods.insertGoodsImageFile");
+            log.info("AdminGoodsDAOImpl insertGoodsImageFile ImageFileVO : " + imageFileVO);
+            session.insert("mapper.admin.goods.insertGoodsImageFile", imageFileVO);
         }
     }
 
@@ -41,6 +43,20 @@ public class AdminGoodsDAOImpl implements AdminGoodsDAO{
     public List<GoodsVO> selectNewGoodsList(Map condMap) throws DataAccessException {
         ArrayList<GoodsVO> goodsList = (ArrayList) session.selectList("mapper.admin.goods.selectNewGoodsList", condMap);
         return goodsList;
+    }
+
+    @Override
+    public GoodsVO selectGoodsDetail(int goodsId) throws DataAccessException {
+        GoodsVO goodsBean = new GoodsVO();
+        goodsBean = session.selectOne("mapper.admin.goods.selectGoodsDetail", goodsId);
+        return goodsBean;
+    }
+
+    @Override
+    public List selectGoodsImageFileList(int goodsId) throws DataAccessException {
+        List imageList = new ArrayList();
+        imageList = session.selectList("mapper.admin.goods.selectGoodsImageFileList", goodsId);
+        return imageList;
     }
 
 }

@@ -32,7 +32,7 @@ import java.util.Map;
 @RequestMapping(value = "/admin/goods")
 public class AdminGoodsControllerImpl extends BaseController implements AdminGoodsController {
 
-    private static final String CURR_IMAGE_REPO_PATH = "C:\\file_repo";
+    private static final String CURR_IMAGE_REPO_PATH = "C:\\shopping\\file_repo";
     private final static Logger log = LoggerFactory.getLogger(AdminGoodsControllerImpl.class);
     @Autowired
     private AdminGoodsService adminGoodsService;
@@ -159,6 +159,17 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
         mav.addObject("section", section);
         mav.addObject("pageNum", pageNum);
 
+        return mav;
+    }
+
+    @Override
+    @RequestMapping(value = "/modifyGoodsForm.do", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView modifyGoodsForm(@RequestParam("goodsId") int goodsId, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        String viewName = (String) request.getAttribute("viewName");
+        ModelAndView mav = new ModelAndView(viewName);
+        Map goodsMap = adminGoodsService.goodsDetail(goodsId);
+        mav.addObject("goodsMap", goodsMap);
         return mav;
     }
 }
