@@ -211,6 +211,7 @@ function  calcPeriod(search_period){
 	 </c:when>
 	 <c:otherwise>
      <c:forEach var="item" items="${newGoodsList }">
+
 			 <TR>       
 				<TD>
 				  <strong>${item.goodsId }</strong>
@@ -257,7 +258,6 @@ function  calcPeriod(search_period){
 	      		</c:forEach> 
      
 		</TBODY>
-		
 	</TABLE>
 	<DIV class="clear"></DIV>
 	<br><br><br>

@@ -140,13 +140,13 @@
         <![CDATA[
         select *
         from (select ROWNUM                                      as recNum,
-                     GOODS_ID,
-                     GOODS_TITLE,
-                     GOODS_WRITER,
-                     GOODS_PUBLISHER,
-                     GOODS_SALES_PRICE,
-                     to_char(GOODS_CREDATE, 'YYYY-MM-DD')        as goods_creDate,
-                     to_char(GOODS_PUBLISHED_DATE, 'YYYY-MM-DD') as goods_published_data
+                     GOODS_ID as goodsId,
+                     GOODS_TITLE as goodsTitle,
+                     GOODS_WRITER as goodsWriter,
+                     GOODS_PUBLISHER as goodsPublisher,
+                     GOODS_SALES_PRICE as goodsSalesPrice,
+                     to_char(GOODS_CREDATE, 'YYYY-MM-DD')        as goodsCreDate,
+                     to_char(GOODS_PUBLISHED_DATE, 'YYYY-MM-DD') as goodsPublishedData
               from (select GOODS_ID,
                            GOODS_TITLE,
                            GOODS_WRITER,
