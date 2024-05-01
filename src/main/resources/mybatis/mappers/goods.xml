@@ -20,13 +20,12 @@
         <result property="goodsDeliveryDate" column="goods_delivery_date"/>
         <result property="goodsStatus" column="goods_status"/>
         <result property="goodsIntro" column="goods_intro"/>
-        <result property="goodsWriteIntro" column="goods_writer_intro"/>
+        <result property="goodsWriterIntro" column="goods_writer_intro"/>
         <result property="goodsContentsOrder" column="goods_contents_order"/>
         <result property="goodsFileName" column="fileName"/>
         <result property="goodsPoint" column="goods_point"/>
         <result property="goodsPublisherComment" column="goods_publisher_comment"/>
         <result property="goodsRecommendation" column="goods_recommendation"/>
-
     </resultMap>
 
     <resultMap id="imageResult" type="imageFileVO">

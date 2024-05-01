@@ -18,7 +18,7 @@ public class GoodsVO {
     private Date goodsDeliveryDate;
     private String goodsStatus;
     private String goodsIntro;
-    private String goodsWriteIntro;
+    private String goodsWriterIntro;
     private String goodsPublisherComment;
     private String goodsRecommendation;
     private String goodsContentsOrder;
@@ -151,12 +151,12 @@ public class GoodsVO {
         this.goodsIntro = goodsIntro;
     }
 
-    public String getGoodsWriteIntro() {
-        return goodsWriteIntro;
+    public String getGoodsWriterIntro() {
+        return goodsWriterIntro;
     }
 
-    public void setGoodsWriteIntro(String goodsWriteIntro) {
-        this.goodsWriteIntro = goodsWriteIntro;
+    public void setGoodsWriterIntro(String goodsWriteIntro) {
+        this.goodsWriterIntro = goodsWriteIntro;
     }
 
     public String getGoodsRecommendation() {
