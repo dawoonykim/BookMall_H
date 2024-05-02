@@ -54,4 +54,17 @@ public class AdminGoodsServiceImpl implements AdminGoodsService {
         goodsMap.put("imageFileList", imageFileList);
         return goodsMap;
     }
+
+    @Override
+    public void modifyGoodsInfo(Map<String, String> goodsMap) throws Exception {
+        log.info("AdminGoodsServiceImpl modifyGoodsInfo goodsMap : "+goodsMap.toString());
+        adminGoodsDAO.updateGoodsInfo(goodsMap);
+    }
+
+    @Override
+    public void modifyGoodsImage(List<ImageFileVO> imageFileList) throws Exception {
+        log.info("AdminGoodsServiceImpl modifyGoodsInfo imageFileList : "+imageFileList.toString());
+        adminGoodsDAO.updateGoodsImage(imageFileList);
+
+    }
 }

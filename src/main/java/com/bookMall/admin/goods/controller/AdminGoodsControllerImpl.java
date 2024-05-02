@@ -166,10 +166,111 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
     @RequestMapping(value = "/modifyGoodsForm.do", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView modifyGoodsForm(@RequestParam("goodsId") int goodsId, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+        log.info("AdminGoodsControllerImpl modifyGoodsForm goodsId : " + goodsId);
         String viewName = (String) request.getAttribute("viewName");
+        log.info("AdminGoodsControllerImpl modifyGoodsForm viewName : " + viewName);
         ModelAndView mav = new ModelAndView(viewName);
+        log.info("AdminGoodsControllerImpl modifyGoodsForm mav : " + mav);
         Map goodsMap = adminGoodsService.goodsDetail(goodsId);
+        log.info("AdminGoodsControllerImpl modifyGoodsForm goodsMap : " + goodsMap);
         mav.addObject("goodsMap", goodsMap);
         return mav;
     }
+
+    @Override
+    @RequestMapping(value = "/modifyGoodsInfo.do", method = RequestMethod.POST)
+    public ResponseEntity modifyGoodsInfo(@RequestParam("goodsId") String goodsId, @RequestParam("attribute") String attribute, @RequestParam("value") String value, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        log.info("AdminGoodsControllerImpl modifyGoodsInfo start");
+        Map<String, String> goodsMap = new HashMap<String, String>();
+        goodsMap.put("goodsId", goodsId);
+        goodsMap.put(attribute, value);
+
+        adminGoodsService.modifyGoodsInfo(goodsMap);
+
+        String message = null;
+        ResponseEntity resEntity;
+        HttpHeaders responseHeader = new HttpHeaders();
+        message = "modSuccess";
+        resEntity = new ResponseEntity(message, responseHeader, HttpStatus.OK);
+        return resEntity;
+    }
+
+    @Override
+    @RequestMapping(value = "/modifyGoodsImageInfo.do", method = RequestMethod.POST)
+    public void modifyGoodsImageInfo(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
+
+        log.info("AdminGoodsControllerImpl modifyGoodsImageInfo start");
+
+        multipartRequest.setCharacterEncoding("utf-8");
+        response.setContentType("text/html;charset=utf-8");
+        String imageFileName = null;
+        log.info("AdminGoodsControllerImpl modifyGoodsImageInfo imageFileName : " + imageFileName);
+
+        Map goodsMap = new HashMap();
+        Enumeration enu = multipartRequest.getParameterNames();
+        log.info("AdminGoodsControllerImpl modifyGoodsImageInfo enu : " + enu);
+
+        while (enu.hasMoreElements()) {
+            String name = (String) enu.nextElement();
+            log.info("AdminGoodsControllerImpl modifyGoodsImageInfo name : " + name);
+            String value = multipartRequest.getParameter(name);
+            log.info("AdminGoodsControllerImpl modifyGoodsImageInfo value : " + value);
+            goodsMap.put(name, value);
+        }
+
+        HttpSession session = multipartRequest.getSession();
+        log.info("AdminGoodsControllerImpl modifyGoodsImageInfo session : " + session);
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
+        log.info("AdminGoodsControllerImpl modifyGoodsImageInfo memberVO : " + memberVO.toString());
+        String regId = memberVO.getMemberId();
+        log.info("AdminGoodsControllerImpl modifyGoodsImageInfo regId : " + regId);
+        List<ImageFileVO> imageFileList = null;
+        int goodsId = 0;
+        int imageId = 0;
+
+        try {
+
+            imageFileList = upload(multipartRequest);
+            log.info("AdminGoodsControllerImpl modifyGoodsImageInfo imageFileList : " + imageFileList.toString());
+            if (imageFileList != null && imageFileList.size() != 0) {
+                for (ImageFileVO imageFileVO : imageFileList) {
+                    goodsId = Integer.parseInt((String) goodsMap.get("goodsId"));
+                    log.info("AdminGoodsControllerImpl modifyGoodsImageInfo goodsId : " + goodsId);
+                    imageId = Integer.parseInt((String) goodsMap.get("imageId"));
+                    log.info("AdminGoodsControllerImpl modifyGoodsImageInfo imageId : " + imageId);
+                    imageFileVO.setGoodsId(goodsId);
+                    imageFileVO.setImageId(imageId);
+                    imageFileVO.setRegId(regId);
+                    log.info("AdminGoodsControllerImpl modifyGoodsImageInfo imageFileVO : " + imageFileVO.toString());
+                }
+                log.info("AdminGoodsControllerImpl modifyGoodsImageInfo adminGoodsService.modifyGoodsImage(imageFileList) 전");
+                adminGoodsService.modifyGoodsImage(imageFileList);
+                log.info("AdminGoodsControllerImpl modifyGoodsImageInfo adminGoodsService.modifyGoodsImage(imageFileList) 후");
+
+                for (ImageFileVO imageFileVO : imageFileList) {
+                    imageFileName = imageFileVO.getFileName();
+                    log.info("AdminGoodsControllerImpl modifyGoodsImageInfo imageFileName: " + imageFileName);
+                    File srcFile = new File(CURR_IMAGE_REPO_PATH + "\\" + "temp" + "\\" + imageFileName);
+                    log.info("AdminGoodsControllerImpl modifyGoodsImageInfo srcFile: " + srcFile);
+                    File destDir = new File(CURR_IMAGE_REPO_PATH + "\\" + goodsId);
+                    log.info("AdminGoodsControllerImpl modifyGoodsImageInfo destDir: " + destDir);
+                    FileUtils.moveFileToDirectory(srcFile, destDir, true);
+                }
+            }
+        } catch (Exception e) {
+
+            log.info("AdminGoodsControllerImpl modifyGoodsImage Exception : " + e);
+            if (imageFileList != null && imageFileList.size() != 0) {
+                for (ImageFileVO imageFileVO : imageFileList) {
+                    imageFileName = imageFileVO.getFileName();
+                    File srcFile = new File(CURR_IMAGE_REPO_PATH + "\\" + "temp" + "\\" + imageFileName);
+                    srcFile.delete();
+                }
+            }
+            e.printStackTrace();
+        }
+    }
+
+
 }

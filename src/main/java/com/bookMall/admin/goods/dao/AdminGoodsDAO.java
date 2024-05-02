@@ -17,4 +17,8 @@ public interface AdminGoodsDAO {
     public GoodsVO selectGoodsDetail(int goodsId) throws DataAccessException;
 
     public List selectGoodsImageFileList(int goodsId) throws DataAccessException;
+
+    public void updateGoodsInfo(Map<String, String> goodsMap) throws DataAccessException;
+
+    public void updateGoodsImage(List<ImageFileVO> imageFileList) throws DataAccessException;
 }

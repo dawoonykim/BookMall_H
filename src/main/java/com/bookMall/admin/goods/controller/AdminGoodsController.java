@@ -16,4 +16,8 @@ public interface AdminGoodsController {
     public ModelAndView adminGoodsMain(@RequestParam Map<String, String> dateMap, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     public ModelAndView modifyGoodsForm(@RequestParam("goodsId") int goods_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+    public ResponseEntity modifyGoodsInfo(@RequestParam("goodsId") String goodsId, @RequestParam("attribute") String attribute, @RequestParam("value") String value, HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+    public void modifyGoodsImageInfo(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
 }

@@ -59,4 +59,21 @@ public class AdminGoodsDAOImpl implements AdminGoodsDAO {
         return imageList;
     }
 
+    @Override
+    public void updateGoodsInfo(Map<String, String> goodsMap) throws DataAccessException {
+
+        log.info("AdminGoodsDAOImpl updateGoodsInfo goodsMap : " + goodsMap.toString());
+        session.update("mapper.admin.goods.updateGoodsInfo", goodsMap);
+    }
+
+    @Override
+    public void updateGoodsImage(List<ImageFileVO> imageFileList) throws DataAccessException {
+        log.info("AdminGoodsDAOImpl updateGoodsImage imageFileList : "+imageFileList.toString());
+        for (int i = 0; i < imageFileList.size(); i++) {
+            ImageFileVO imageFileVO = imageFileList.get(i);
+            log.info("AdminGoodsDAOImpl updateGoodsImage imageFileVO : "+imageFileVO.toString());
+            session.update("mapper.admin.goods.updateGoodsImage", imageFileVO);
+        }
+    }
+
 }
