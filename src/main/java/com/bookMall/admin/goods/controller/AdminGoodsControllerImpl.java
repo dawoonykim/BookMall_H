@@ -250,11 +250,11 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 
                 for (ImageFileVO imageFileVO : imageFileList) {
                     imageFileName = imageFileVO.getFileName();
-                    log.info("AdminGoodsControllerImpl modifyGoodsImageInfo imageFileName: " + imageFileName);
+                    log.info("AdminGoodsControllerImpl modifyGoodsImageInfo imageFileName : " + imageFileName);
                     File srcFile = new File(CURR_IMAGE_REPO_PATH + "\\" + "temp" + "\\" + imageFileName);
-                    log.info("AdminGoodsControllerImpl modifyGoodsImageInfo srcFile: " + srcFile);
+                    log.info("AdminGoodsControllerImpl modifyGoodsImageInfo srcFile : " + srcFile);
                     File destDir = new File(CURR_IMAGE_REPO_PATH + "\\" + goodsId);
-                    log.info("AdminGoodsControllerImpl modifyGoodsImageInfo destDir: " + destDir);
+                    log.info("AdminGoodsControllerImpl modifyGoodsImageInfo destDir : " + destDir);
                     FileUtils.moveFileToDirectory(srcFile, destDir, true);
                 }
             }
@@ -270,6 +270,8 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
             }
             e.printStackTrace();
         }
+
+        log.info("AdminGoodsControllerImpl modifyGoodsImageInfo end");
     }
 
 

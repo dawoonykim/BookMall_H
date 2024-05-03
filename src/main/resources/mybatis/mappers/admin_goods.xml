@@ -12,6 +12,7 @@
         <result property="goodsWriter" column="goods_writer"/>
         <result property="goodsPublisher" column="goods_publisher"/>
         <result property="goodsPrice" column="goods_price"/>
+        <result property="goodsPoint" column="goods_point"/>
         <result property="goodsSalesPrice" column="goods_sales_price"/>
         <result property="goodsPublishedDate" column="goods_published_date"/>
         <result property="goodsTotalPage" column="goods_total_page"/>
@@ -24,6 +25,8 @@
         <result property="goodsContentsOrder" column="goods_contents_order" javaType="java.lang.String"
                 jdbcType="CLOB"/>
         <result property="goodsFileName" column="fileName"/>
+        <result property="goodsRecommendation" column="goods_recommendation"/>
+        <result property="goodsPublisherComment" column="goods_publisher_comment"/>
     </resultMap>
 
     <resultMap id="imageResult" type="imageFileVO">
@@ -186,7 +189,7 @@
         update T_SHOPPING_GOODS
         <set>
             <if test="goodsSort!='' and goodsSort!=null">
-                goodsSort=#{goodsSort}
+                goods_sort=#{goodsSort}
             </if>
             <if test="goodsTitle!='' and goodsTitle!=null">
                 goods_title=#{goodsTitle}
@@ -246,7 +249,7 @@
         update T_GOODS_DETAIL_IMAGE
         set FILENAME = #{fileName}
         where GOODS_ID = #{goodsId}
-          and IMAGE_ID = #[imageId]
+          and IMAGE_ID = #{imageId}
     </update>
 
 

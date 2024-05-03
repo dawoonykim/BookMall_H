@@ -18,7 +18,7 @@
                 var frm_mod_goods = document.frm_mod_goods;
                 var h_goods_status = frm_mod_goods.h_goods_status;
                 var goods_status = h_goods_status.value;
-                var select_goods_status = frm_mod_goods.goods_status;
+                var select_goods_status = frm_mod_goods.goodsStatus;
                 select_goods_status.value = goods_status;
             }
         </script>
@@ -64,7 +64,14 @@
             value = frm_mod_goods.publisherComment.value;
         } else if (attribute == 'goodsRecommendation') {
             value = frm_mod_goods.goodsRecommendation.value;
+        } else if (attribute == 'goodsTotalPage') {
+            value = frm_mod_goods.goodsTotalPage.value;
+        } else if (attribute == 'goodsPublisherComment') {
+            value = frm_mod_goods.goodsPublisherComment.value;
+        } else if (attribute == 'fileName') {
+            value = frm_mod_goods.fileName.value;
         }
+
 
         $.ajax({
             type: "post",
@@ -114,13 +121,13 @@
         cnt++;
     }
 
-    function modifyImageFile(fileId, goods_id, image_id, fileType) {
+    function modifyImageFile(fileId, goodsId, imageId, fileType) {
         // alert(fileId);
         var form = $('#FILE_FORM')[0];
         var formData = new FormData(form);
         formData.append("goodsFileName", $('#' + fileId)[0].files[0]);
-        formData.append("goodsId", goods_id);
-        formData.append("imageId", image_id);
+        formData.append("goodsId", goodsId);
+        formData.append("imageId", imageId);
         formData.append("fileType", fileType);
 
         $.ajax({
@@ -135,12 +142,12 @@
         });
     }
 
-    function addNewImageFile(fileId, goods_id, fileType) {
+    function addNewImageFile(fileId, goodsId, fileType) {
         //  alert(fileId);
         var form = $('#FILE_FORM')[0];
         var formData = new FormData(form);
         formData.append("uploadFile", $('#' + fileId)[0].files[0]);
-        formData.append("goodsId", goods_id);
+        formData.append("goodsId", goodsId);
         formData.append("fileType", fileType);
 
         $.ajax({
@@ -155,7 +162,7 @@
         });
     }
 
-    function deleteImageFile(goods_id, image_id, imageFileName, trId) {
+    function deleteImageFile(goodsId, imageId, imageFileName, trId) {
         var tr = document.getElementById(trId);
 
         $.ajax({
@@ -473,7 +480,7 @@
                             </td>
                             <td>
                                 <input type="button" value="¼öÁ¤"
-                                       onClick="modifyImageFile('main_image','${item.goodsId}','${item.goodsId}','${item.fileType}')"/>
+                                       onClick="modifyImageFile('main_image','${item.goodsId}','${item.goodsId}','${item.fileType}'),'fileName'"/>
                             </td>
                         </tr>
                         <tr>
