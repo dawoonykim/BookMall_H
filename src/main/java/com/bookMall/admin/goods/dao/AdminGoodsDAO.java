@@ -10,7 +10,7 @@ import java.util.Map;
 public interface AdminGoodsDAO {
     public int insertNewGoods(Map newGoodsMap) throws DataAccessException;
 
-    public void insertGoodsImageFile(List<ImageFileVO> imageFileList) throws DataAccessException;
+    public void insertGoodsImageFile(List imageFileList) throws DataAccessException;
 
     public List<GoodsVO> selectNewGoodsList(Map condMap) throws DataAccessException;
 
@@ -21,4 +21,6 @@ public interface AdminGoodsDAO {
     public void updateGoodsInfo(Map<String, String> goodsMap) throws DataAccessException;
 
     public void updateGoodsImage(List<ImageFileVO> imageFileList) throws DataAccessException;
+
+    public void deleteGoodsImage(int imageId) throws DataAccessException;
 }

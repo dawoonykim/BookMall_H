@@ -162,12 +162,13 @@
             data: formData,
             type: 'post',
             success: function (result) {
-                alert("이미지를 수정했습니다!");
+                alert("이미지를 추가했습니다!");
             }
         });
     }
 
     function deleteImageFile(goodsId, imageId, imageFileName, trId) {
+        console.log("deleteImageFile 실행")
         var tr = document.getElementById(trId);
 
         $.ajax({
@@ -191,6 +192,9 @@
 
             }
         }); //end ajax
+        console.log(goodsId)
+        console.log(imageId)
+        console.log(imageFileName)
     }
 </script>
 
@@ -513,7 +517,7 @@
                                 </td>
                                 <td>
                                     <input type="button" value="수정"
-                                           onClick="modifyImageFile('detail_image','${item.goodsId}','${item.goodsId}','${item.fileType}')"/>
+                                           onClick="modifyImageFile('detail_image','${item.goodsId}','${item.imageId}','${item.fileType}')"/>
                                     <input type="button" value="삭제"
                                            onClick="deleteImageFile('${item.goodsId}','${item.goodsId}','${item.fileName}','${itemNum.count-1}')"/>
                                 </td>

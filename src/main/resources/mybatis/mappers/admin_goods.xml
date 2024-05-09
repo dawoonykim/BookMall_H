@@ -184,7 +184,6 @@
         ]]>
     </select>
 
-
     <update id="updateGoodsInfo" parameterType="java.util.HashMap">
         update T_SHOPPING_GOODS
         <set>
@@ -245,11 +244,18 @@
         </set>
         where GOODS_ID=#{goodsId}
     </update>
+
     <update id="updateGoodsImage" parameterType="imageFileVO">
         update T_GOODS_DETAIL_IMAGE
         set FILENAME = #{fileName}
         where GOODS_ID = #{goodsId}
           and IMAGE_ID = #{imageId}
     </update>
+
+    <delete id="deleteGoodsImage" parameterType="String">
+        delete from T_GOODS_DETAIL_IMAGE
+        where IMAGE_ID = #{imageId}
+    </delete>
+
 
 </mapper>

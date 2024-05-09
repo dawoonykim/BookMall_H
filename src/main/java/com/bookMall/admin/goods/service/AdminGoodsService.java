@@ -16,4 +16,8 @@ public interface AdminGoodsService {
     public void modifyGoodsInfo(Map<String, String> goodsMap) throws Exception;
 
     public void modifyGoodsImage(List<ImageFileVO> imageFileList) throws Exception;
+
+    public void addNewGoodsImage(List<ImageFileVO> imageFileList) throws Exception;
+
+    public void removeGoodsImage(int imageId) throws Exception;
 }
