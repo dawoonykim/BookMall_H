@@ -71,8 +71,8 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
         List<GoodsVO> newGoodsList = adminGoodsService.listNewGoods(condMap);
         mav.addObject("newGoodsList", newGoodsList);
 
-        String beginDate1[] = beginDate.split("-");
-        String endDate2[] = endDate.split("-");
+        String[] beginDate1 = beginDate.split("-");
+        String[] endDate2 = endDate.split("-");
 
         mav.addObject("beginYear", beginDate1[0]);
         mav.addObject("beginMonth", beginDate1[1]);
@@ -230,8 +230,8 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
         String regId = memberVO.getMemberId();
         log.info("AdminGoodsControllerImpl modifyGoodsImageInfo regId : " + regId);
         List<ImageFileVO> imageFileList = null;
-        int goods_Id = 0;
-        int image_Id = 0;
+        int goodsId = 0;
+        int imageId = 0;
 
         try {
 
@@ -239,14 +239,14 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
             log.info("AdminGoodsControllerImpl modifyGoodsImageInfo imageFileList : " + imageFileList.toString());
             if (imageFileList != null && imageFileList.size() != 0) {
                 for (ImageFileVO imageFileVO : imageFileList) {
-                    goods_Id = Integer.parseInt((String) goodsMap.get("goodsId"));
-                    log.info("AdminGoodsControllerImpl modifyGoodsImageInfo goodsId : " + goods_Id);
-                    image_Id = Integer.parseInt((String) goodsMap.get("imageId"));
-                    log.info("AdminGoodsControllerImpl modifyGoodsImageInfo imageId : " + image_Id);
-                    imageFileVO.setGoodsId(goods_Id);
-                    imageFileVO.setImageId(image_Id);
+                    goodsId = Integer.parseInt((String) goodsMap.get("goodsId"));
+                    log.info("AdminGoodsControllerImpl modifyGoodsImageInfo goodsId : " + goodsId);
+                    imageId = Integer.parseInt((String) goodsMap.get("imageId"));
+                    log.info("AdminGoodsControllerImpl modifyGoodsImageInfo imageId : " + imageId);
+                    imageFileVO.setGoodsId(goodsId);
+                    imageFileVO.setImageId(imageId);
                     imageFileVO.setRegId(regId);
-                    log.info("AdminGoodsControllerImpl modifyGoodsImageInfo imageFileVO : " + imageFileVO.toString());
+                    log.info("AdminGoodsControllerImpl modifyGoodsImageInfo imageFileVO : " + imageFileVO);
                 }
                 log.info("AdminGoodsControllerImpl modifyGoodsImageInfo adminGoodsService.modifyGoodsImage(imageFileList) 전");
                 adminGoodsService.modifyGoodsImage(imageFileList);
@@ -257,7 +257,7 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
                     log.info("AdminGoodsControllerImpl modifyGoodsImageInfo imageFileName : " + imageFileName);
                     File srcFile = new File(CURR_IMAGE_REPO_PATH + "\\" + "temp" + "\\" + imageFileName);
                     log.info("AdminGoodsControllerImpl modifyGoodsImageInfo srcFile : " + srcFile);
-                    File destDir = new File(CURR_IMAGE_REPO_PATH + "\\" + goods_Id);
+                    File destDir = new File(CURR_IMAGE_REPO_PATH + "\\" + goodsId);
                     log.info("AdminGoodsControllerImpl modifyGoodsImageInfo destDir : " + destDir);
                     FileUtils.moveFileToDirectory(srcFile, destDir, true);
                 }
@@ -337,9 +337,18 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
     @Override
     @RequestMapping(value = "/removeGoodsImage.do", method = RequestMethod.POST)
     public void removeGoodsImage(@RequestParam("goodsId") int goodsId, @RequestParam("imageId") int imageId, @RequestParam("imageFileName") String imageFileName, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        log.info("AdminGoodsControllerImpl removeGoodsImage start / adminGoodsService.removeGoodsImage(imageId) 전");
+        log.info("AdminGoodsControllerImpl removeGoodsImage start");
+        log.info("AdminGoodsControllerImpl goodsId : " + goodsId);
         log.info("AdminGoodsControllerImpl imageId : " + imageId);
-        adminGoodsService.removeGoodsImage(imageId);
+        log.info("AdminGoodsControllerImpl imageFileName : " + imageFileName);
+
+        // 여기서 imageId를 올바르게 전달하는지 확인합니다.
+        if (goodsId == imageId) {
+            throw new IllegalArgumentException("imageId와 goodsId는 같을 수 없습니다.");
+        }
+
+        log.info("adminGoodsService.removeGoodsImage(imageId) 전");
+        adminGoodsService.removeGoodsImage(imageId); // 올바른 imageId를 전달합니다.
         log.info("adminGoodsService.removeGoodsImage(imageId) 후");
         try {
             File srcFile = new File(CURR_IMAGE_REPO_PATH + "\\" + goodsId + "\\" + imageFileName);
@@ -348,6 +357,8 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
             e.printStackTrace();
         }
     }
+
+
 
 
 }

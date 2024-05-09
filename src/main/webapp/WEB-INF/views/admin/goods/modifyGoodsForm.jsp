@@ -519,7 +519,7 @@
                                     <input type="button" value="수정"
                                            onClick="modifyImageFile('detail_image','${item.goodsId}','${item.imageId}','${item.fileType}')"/>
                                     <input type="button" value="삭제"
-                                           onClick="deleteImageFile('${item.goodsId}','${item.goodsId}','${item.fileName}','${itemNum.count-1}')"/>
+                                           onClick="deleteImageFile('${item.goodsId}','${item.imageId}','${item.fileName}','${itemNum.count-1}')"/>
                                 </td>
                             </tr>
                             <tr>

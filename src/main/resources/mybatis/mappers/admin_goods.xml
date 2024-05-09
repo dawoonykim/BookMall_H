@@ -261,7 +261,7 @@
     <delete id="deleteGoodsImage" parameterType="int">
         delete
         from T_GOODS_DETAIL_IMAGE
-        where IMAGE_ID = #{image_Id}
+        where IMAGE_ID = #{imageId}
     </delete>
 
 
