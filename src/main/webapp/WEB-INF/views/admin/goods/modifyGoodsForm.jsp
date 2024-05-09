@@ -192,9 +192,9 @@
 
             }
         }); //end ajax
-        console.log(goodsId)
-        console.log(imageId)
-        console.log(imageFileName)
+        console.log("goodsId : ",goodsId)
+        console.log("imageId : ",imageId)
+        console.log("imageFileName : ",imageFileName)
     }
 </script>
 

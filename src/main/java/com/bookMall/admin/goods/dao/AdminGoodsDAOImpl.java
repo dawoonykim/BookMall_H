@@ -78,6 +78,8 @@ public class AdminGoodsDAOImpl implements AdminGoodsDAO {
 
     @Override
     public void deleteGoodsImage(int imageId) throws DataAccessException {
+        log.info("adminGoodsDAOImpl deleteGoodsImage 실행");
+        log.info("imageId : "+imageId);
         session.delete("mapper.admin,goods.deleteGoodsImage", imageId);
     }
 

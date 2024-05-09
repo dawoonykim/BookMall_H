@@ -74,6 +74,8 @@ public class AdminGoodsServiceImpl implements AdminGoodsService {
     }
     @Override
     public void removeGoodsImage(int imageId) throws Exception {
+        log.info("AdminGoodsServiceImpl removeGoodsImage 실행");
+        log.info("imageId : "+imageId);
         adminGoodsDAO.deleteGoodsImage(imageId);
     }
 

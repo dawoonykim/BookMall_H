@@ -143,11 +143,11 @@
         <![CDATA[
         select *
         from (select ROWNUM                                      as recNum,
-                     GOODS_ID as goodsId,
-                     GOODS_TITLE as goodsTitle,
-                     GOODS_WRITER as goodsWriter,
-                     GOODS_PUBLISHER as goodsPublisher,
-                     GOODS_SALES_PRICE as goodsSalesPrice,
+                     GOODS_ID                                    as goodsId,
+                     GOODS_TITLE                                 as goodsTitle,
+                     GOODS_WRITER                                as goodsWriter,
+                     GOODS_PUBLISHER                             as goodsPublisher,
+                     GOODS_SALES_PRICE                           as goodsSalesPrice,
                      to_char(GOODS_CREDATE, 'YYYY-MM-DD')        as goodsCreDate,
                      to_char(GOODS_PUBLISHED_DATE, 'YYYY-MM-DD') as goodsPublishedData
               from (select GOODS_ID,
@@ -167,19 +167,25 @@
     <select id="selectGoodsDetail" parameterType="String" resultMap="goodsResult">
         <![CDATA[
         select g.*, to_char(g.GOODS_PUBLISHED_DATE, 'YYYY-MM-DD') as goodsPublishedDate, d.FILENAME
-        from  T_SHOPPING_GOODS g,
-              T_GOODS_DETAIL_IMAGE d
-        where g.GOODS_ID=d.GOODS_ID
-          and d.FILETYPE='main_image'
-          and g.GOODS_ID=#{goodsId}
+        from T_SHOPPING_GOODS g,
+             T_GOODS_DETAIL_IMAGE d
+        where g.GOODS_ID = d.GOODS_ID
+          and d.FILETYPE = 'main_image'
+          and g.GOODS_ID = #{goodsId}
         order by g.GOODS_ID
         ]]>
     </select>
 
     <select id="selectGoodsImageFileList" parameterType="String" resultMap="imageResult">
         <![CDATA[
-        select * from T_GOODS_DETAIL_IMAGE
-        where GOODS_ID=#{goodsId}
+        select IMAGE_ID as imageId,
+               GOODS_ID as goodsId,
+               FILENAME as fileName,
+               REG_ID   as regId,
+               FILETYPE as fileType,
+               CREDATE  as creDate
+        from T_GOODS_DETAIL_IMAGE
+        where GOODS_ID = #{goodsId}
         order by IMAGE_ID asc
         ]]>
     </select>
@@ -252,9 +258,10 @@
           and IMAGE_ID = #{imageId}
     </update>
 
-    <delete id="deleteGoodsImage" parameterType="String">
-        delete from T_GOODS_DETAIL_IMAGE
-        where IMAGE_ID = #{imageId}
+    <delete id="deleteGoodsImage" parameterType="int">
+        delete
+        from T_GOODS_DETAIL_IMAGE
+        where IMAGE_ID = #{image_Id}
     </delete>
 
 
