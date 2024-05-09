@@ -67,7 +67,7 @@ public class LoggingAdvice {
         log.info("after logging advice");
     }
 
-    // target 메소드의 동작 시간을 측정합니다.
+    // target 메소드의 동작 시간을 측정합니다. 1
     @Around("execution(* com.bookMall.*.service.*.*(..)) || "
             + "execution(* com.bookMall.*.dao.*.*(..))")
     public Object timeLog(ProceedingJoinPoint pjp) throws Throwable {
