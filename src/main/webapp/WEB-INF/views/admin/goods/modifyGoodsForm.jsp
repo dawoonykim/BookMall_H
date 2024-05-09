@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-         pageEncoding="euc-kr"
+         pageEncoding="utf-8"
          isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -43,7 +43,9 @@
         } else if (attribute == 'goodsPoint') {
             value = frm_mod_goods.goodsPoint.value;
         } else if (attribute == 'goodsPublishedDate') {
+            console.log("modify success1")
             value = frm_mod_goods.goodsPublishedDate.value;
+            console.log("modify success2")
         } else if (attribute == 'goodsPageTotal') {
             value = frm_mod_goods.goodsPageTotal.value;
         } else if (attribute == 'goodsIsbn') {
@@ -51,7 +53,9 @@
         } else if (attribute == 'goodsDeliveryPrice') {
             value = frm_mod_goods.goodsDeliveryPrice.value;
         } else if (attribute == 'goodsDeliveryDate') {
+            console.log("modify success")
             value = frm_mod_goods.goodsDeliveryDate.value;
+            console.log("modify success2")
         } else if (attribute == 'goodsStatus') {
             value = frm_mod_goods.goodsStatus.value;
         } else if (attribute == 'goodsContentsOrder') {
@@ -75,26 +79,27 @@
 
         $.ajax({
             type: "post",
-            async: false, //falseÀÎ °æ¿ì µ¿±â½ÄÀ¸·Î Ã³¸®ÇÑ´Ù.
+            async: false, //falseì¸ ê²½ìš° ë™ê¸°ì‹ìœ¼ë¡œ ì²˜ë¦¬í•œë‹¤.
             url: "${contextPath}/admin/goods/modifyGoodsInfo.do",
             data: {
                 goodsId: goodsId,
                 attribute: attribute,
                 value: value
+
             },
             success: function (data, textStatus) {
                 if (data.trim() == 'modSuccess') {
-                    alert("»óÇ° Á¤º¸¸¦ ¼öÁ¤Çß½À´Ï´Ù.");
+                    alert("ìƒí’ˆ ì •ë³´ë¥¼ ìˆ˜ì •í–ˆìŠµë‹ˆë‹¤.");
                 } else if (data.trim() == 'failed') {
-                    alert("´Ù½Ã ½ÃµµÇØ ÁÖ¼¼¿ä.");
+                    alert("ë‹¤ì‹œ ì‹œë„í•´ ì£¼ì„¸ìš”.");
                 }
 
             },
             error: function (data, textStatus) {
-                alert("¿¡·¯°¡ ¹ß»ıÇß½À´Ï´Ù." + data);
+                alert("ì—ëŸ¬ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤." + data);
             },
             complete: function (data, textStatus) {
-                //alert("ÀÛ¾÷À»¿Ï·á Çß½À´Ï´Ù");
+                //alert("ì‘ì—…ì„ì™„ë£Œ í–ˆìŠµë‹ˆë‹¤");
 
             }
         }); //end ajax
@@ -117,7 +122,7 @@
     function fn_addFile() {
         $("#d_file").append("<br>" + "<input  type='file' name='detail_image" + cnt + "' id='detail_image" + cnt + "'  onchange=readURL(this,'previewImage" + cnt + "') />");
         $("#d_file").append("<img  id='previewImage" + cnt + "'   width=200 height=200  />");
-        $("#d_file").append("<input  type='button' value='Ãß°¡'  onClick=addNewImageFile('detail_image" + cnt + "','${imageFileList[0].goodsId}','detail_image')  />");
+        $("#d_file").append("<input  type='button' value='ì¶”ê°€'  onClick=addNewImageFile('detail_image" + cnt + "','${imageFileList[0].goodsId}','detail_image')  />");
         cnt++;
     }
 
@@ -137,7 +142,7 @@
             data: formData,
             type: 'POST',
             success: function (result) {
-                alert("ÀÌ¹ÌÁö¸¦ ¼öÁ¤Çß½À´Ï´Ù!");
+                alert("ì´ë¯¸ì§€ë¥¼ ìˆ˜ì •í–ˆìŠµë‹ˆë‹¤!");
             }
         });
     }
@@ -157,7 +162,7 @@
             data: formData,
             type: 'post',
             success: function (result) {
-                alert("ÀÌ¹ÌÁö¸¦ ¼öÁ¤Çß½À´Ï´Ù!");
+                alert("ì´ë¯¸ì§€ë¥¼ ìˆ˜ì •í–ˆìŠµë‹ˆë‹¤!");
             }
         });
     }
@@ -167,7 +172,7 @@
 
         $.ajax({
             type: "post",
-            async: true, //falseÀÎ °æ¿ì µ¿±â½ÄÀ¸·Î Ã³¸®ÇÑ´Ù.
+            async: true, //falseì¸ ê²½ìš° ë™ê¸°ì‹ìœ¼ë¡œ ì²˜ë¦¬í•œë‹¤.
             url: "${contextPath}/admin/goods/removeGoodsImage.do",
             data: {
                 goodsId: goodsId,
@@ -175,14 +180,14 @@
                 imageFileName: imageFileName
             },
             success: function (data, textStatus) {
-                alert("ÀÌ¹ÌÁö¸¦ »èÁ¦Çß½À´Ï´Ù!!");
+                alert("ì´ë¯¸ì§€ë¥¼ ì‚­ì œí–ˆìŠµë‹ˆë‹¤!!");
                 tr.style.display = 'none';
             },
             error: function (data, textStatus) {
-                alert("¿¡·¯°¡ ¹ß»ıÇß½À´Ï´Ù." + textStatus);
+                alert("ì—ëŸ¬ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤." + textStatus);
             },
             complete: function (data, textStatus) {
-                //alert("ÀÛ¾÷À»¿Ï·á Çß½À´Ï´Ù");
+                //alert("ì‘ì—…ì„ì™„ë£Œ í–ˆìŠµë‹ˆë‹¤");
 
             }
         }); //end ajax
@@ -193,83 +198,83 @@
 <BODY>
 <form name="frm_mod_goods" method=post>
     <DIV class="clear"></DIV>
-    <!-- ³»¿ë µé¾î °¡´Â °÷ -->
+    <!-- ë‚´ìš© ë“¤ì–´ ê°€ëŠ” ê³³ -->
     <DIV id="container">
         <UL class="tabs">
-            <li><A href="#tab1">»óÇ°Á¤º¸</A></li>
-            <li><A href="#tab2">»óÇ°¸ñÂ÷</A></li>
-            <li><A href="#tab3">»óÇ°ÀúÀÚ¼Ò°³</A></li>
-            <li><A href="#tab4">»óÇ°¼Ò°³</A></li>
-            <li><A href="#tab5">ÃâÆÇ»ç »óÇ° Æò°¡</A></li>
-            <li><A href="#tab6">ÃßÃµ»ç</A></li>
-            <li><A href="#tab7">»óÇ°ÀÌ¹ÌÁö</A></li>
+            <li><A href="#tab1">ìƒí’ˆì •ë³´</A></li>
+            <li><A href="#tab2">ìƒí’ˆëª©ì°¨</A></li>
+            <li><A href="#tab3">ìƒí’ˆì €ìì†Œê°œ</A></li>
+            <li><A href="#tab4">ìƒí’ˆì†Œê°œ</A></li>
+            <li><A href="#tab5">ì¶œíŒì‚¬ ìƒí’ˆ í‰ê°€</A></li>
+            <li><A href="#tab6">ì¶”ì²œì‚¬</A></li>
+            <li><A href="#tab7">ìƒí’ˆì´ë¯¸ì§€</A></li>
         </UL>
         <DIV class="tab_container">
             <DIV class="tab_content" id="tab1">
                 <table>
                     <tr>
-                        <td width=200>»óÇ°ºĞ·ù</td>
+                        <td width=200>ìƒí’ˆë¶„ë¥˜</td>
                         <td width=500>
                             <select name="goodsSort">
                                 <c:choose>
-                                    <c:when test="${goods.goodsSort=='ÄÄÇ»ÅÍ¿Í ÀÎÅÍ³İ' }">
-                                        <option value="ÄÄÇ»ÅÍ¿Í ÀÎÅÍ³İ" selected>ÄÄÇ»ÅÍ¿Í ÀÎÅÍ³İ</option>
-                                        <option value="µğÁöÅĞ ±â±â">µğÁöÅĞ ±â±â</option>
+                                    <c:when test="${goods.goodsSort=='ì»´í“¨í„°ì™€ ì¸í„°ë„·' }">
+                                        <option value="ì»´í“¨í„°ì™€ ì¸í„°ë„·" selected>ì»´í“¨í„°ì™€ ì¸í„°ë„·</option>
+                                        <option value="ë””ì§€í„¸ ê¸°ê¸°">ë””ì§€í„¸ ê¸°ê¸°</option>
                                     </c:when>
-                                    <c:when test="${goods.goodsSort=='µğÁöÅĞ ±â±â' }">
-                                        <option value="ÄÄÇ»ÅÍ¿Í ÀÎÅÍ³İ">ÄÄÇ»ÅÍ¿Í ÀÎÅÍ³İ</option>
-                                        <option value="µğÁöÅĞ ±â±â" selected>µğÁöÅĞ ±â±â</option>
+                                    <c:when test="${goods.goodsSort=='ë””ì§€í„¸ ê¸°ê¸°' }">
+                                        <option value="ì»´í“¨í„°ì™€ ì¸í„°ë„·">ì»´í“¨í„°ì™€ ì¸í„°ë„·</option>
+                                        <option value="ë””ì§€í„¸ ê¸°ê¸°" selected>ë””ì§€í„¸ ê¸°ê¸°</option>
                                     </c:when>
                                 </c:choose>
                             </select>
                         </td>
                         <td>
-                            <input type="button" value="¼öÁ¤¹İ¿µ"
+                            <input type="button" value="ìˆ˜ì •ë°˜ì˜"
                                    onClick="fn_modify_goods('${goods.goodsId }','goodsSort')"/>
                         </td>
                     </tr>
                     <tr>
-                        <td>»óÇ°ÀÌ¸§</td>
+                        <td>ìƒí’ˆì´ë¦„</td>
                         <td><input name="goodsTitle" type="text" size="40" value="${goods.goodsTitle }"/></td>
                         <td>
-                            <input type="button" value="¼öÁ¤¹İ¿µ"
+                            <input type="button" value="ìˆ˜ì •ë°˜ì˜"
                                    onClick="fn_modify_goods('${goods.goodsId }','goodsTitle')"/>
                         </td>
                     </tr>
 
                     <tr>
-                        <td>ÀúÀÚ</td>
+                        <td>ì €ì</td>
                         <td><input name="goodsWriter" type="text" size="40" value="${goods.goodsWriter }"/></td>
                         <td>
-                            <input type="button" value="¼öÁ¤¹İ¿µ"
+                            <input type="button" value="ìˆ˜ì •ë°˜ì˜"
                                    onClick="fn_modify_goods('${goods.goodsId }','goodsWriter')"/>
                         </td>
 
                     </tr>
                     <tr>
-                        <td>ÃâÆÇ»ç</td>
+                        <td>ì¶œíŒì‚¬</td>
                         <td><input name="goodsPublisher" type="text" size="40" value="${goods.goodsPublisher }"/></td>
                         <td>
-                            <input type="button" value="¼öÁ¤¹İ¿µ"
+                            <input type="button" value="ìˆ˜ì •ë°˜ì˜"
                                    onClick="fn_modify_goods('${goods.goodsId }','goodsPublisher')"/>
                         </td>
 
                     </tr>
                     <tr>
-                        <td>»óÇ°Á¤°¡</td>
+                        <td>ìƒí’ˆì •ê°€</td>
                         <td><input name="goodsPrice" type="text" size="40" value="${goods.goodsPrice }"/></td>
                         <td>
-                            <input type="button" value="¼öÁ¤¹İ¿µ"
+                            <input type="button" value="ìˆ˜ì •ë°˜ì˜"
                                    onClick="fn_modify_goods('${goods.goodsId }','goodsPrice')"/>
                         </td>
 
                     </tr>
 
                     <tr>
-                        <td>»óÇ°ÆÇ¸Å°¡°İ</td>
+                        <td>ìƒí’ˆíŒë§¤ê°€ê²©</td>
                         <td><input name="goodsSalesPrice" type="text" size="40" value="${goods.goodsSalesPrice }"/></td>
                         <td>
-                            <input type="button" value="¼öÁ¤¹İ¿µ"
+                            <input type="button" value="ìˆ˜ì •ë°˜ì˜"
                                    onClick="fn_modify_goods('${goods.goodsId }','goodsSalesPrice')"/>
                         </td>
 
@@ -277,32 +282,32 @@
 
 
                     <tr>
-                        <td>»óÇ° ±¸¸Å Æ÷ÀÎÆ®</td>
+                        <td>ìƒí’ˆ êµ¬ë§¤ í¬ì¸íŠ¸</td>
                         <td><input name="goodsPoint" type="text" size="40" value="${goods.goodsPoint }"/></td>
                         <td>
-                            <input type="button" value="¼öÁ¤¹İ¿µ"
+                            <input type="button" value="ìˆ˜ì •ë°˜ì˜"
                                    onClick="fn_modify_goods('${goods.goodsId }','goodsPoint')"/>
                         </td>
 
                     </tr>
 
                     <tr>
-                        <td>»óÇ°ÃâÆÇÀÏ</td>
+                        <td>ìƒí’ˆì¶œíŒì¼</td>
                         <td>
                             <input name="goodsPublishedDate" type="date" value="${goods.goodsPublishedDate }"/>
                         </td>
                         <td>
-                            <input type="button" value="¼öÁ¤¹İ¿µ"
+                            <input type="button" value="ìˆ˜ì •ë°˜ì˜"
                                    onClick="fn_modify_goods('${goods.goodsId }','goodsPublishedDate')"/>
                         </td>
 
                     </tr>
 
                     <tr>
-                        <td>»óÇ° ÃÑ ÆäÀÌÁö¼ö</td>
+                        <td>ìƒí’ˆ ì´ í˜ì´ì§€ìˆ˜</td>
                         <td><input name="goodsTotalPage" type="text" size="40" value="${goods.goodsTotalPage }"/></td>
                         <td>
-                            <input type="button" value="¼öÁ¤¹İ¿µ"
+                            <input type="button" value="ìˆ˜ì •ë°˜ì˜"
                                    onClick="fn_modify_goods('${goods.goodsId }','goodsTotalPage')"/>
                         </td>
 
@@ -312,48 +317,48 @@
                         <td>ISBN</td>
                         <td><input name="goodsIsbn" type="text" size="40" value="${goods.goodsIsbn }"/></td>
                         <td>
-                            <input type="button" value="¼öÁ¤¹İ¿µ"
+                            <input type="button" value="ìˆ˜ì •ë°˜ì˜"
                                    onClick="fn_modify_goods('${goods.goodsId }','goodsIsbn')"/>
                         </td>
 
                     </tr>
                     <tr>
-                        <td>»óÇ° ¹è¼Ûºñ</td>
+                        <td>ìƒí’ˆ ë°°ì†¡ë¹„</td>
                         <td><input name="goodsDeliveryPrice" type="text" size="40"
                                    value="${goods.goodsDeliveryPrice }"/></td>
                         <td>
-                            <input type="button" value="¼öÁ¤¹İ¿µ"
+                            <input type="button" value="ìˆ˜ì •ë°˜ì˜"
                                    onClick="fn_modify_goods('${goods.goodsId }','goodsDeliveryPrice')"/>
                         </td>
 
                     </tr>
                     <tr>
-                        <td>»óÇ° µµÂø ¿¹Á¤ÀÏ</td>
+                        <td>ìƒí’ˆ ë„ì°© ì˜ˆì •ì¼</td>
                         <td>
                             <input name="goodsDeliveryDate" type="date" value="${goods.goodsDeliveryDate }"/>
                         </td>
                         <td>
-                            <input type="button" value="¼öÁ¤¹İ¿µ"
+                            <input type="button" value="ìˆ˜ì •ë°˜ì˜"
                                    onClick="fn_modify_goods('${goods.goodsId }','goodsDeliveryDate')"/>
                         </td>
 
                     </tr>
 
                     <tr>
-                        <td>»óÇ°Á¾·ù</td>
+                        <td>ìƒí’ˆì¢…ë¥˜</td>
                         <td>
                             <select name="goodsStatus">
-                                <option value="bestseller">º£½ºÆ®¼¿·¯</option>
-                                <option value="steadyseller">½ºÅ×µğ¼¿·¯</option>
-                                <option value="newbook">½Å°£</option>
-                                <option value="on_sale">ÆÇ¸ÅÁß</option>
-                                <option value="buy_out" selected>Ç°Àı</option>
-                                <option value="out_of_print">ÀıÆÇ</option>
+                                <option value="bestseller">ë² ìŠ¤íŠ¸ì…€ëŸ¬</option>
+                                <option value="steadyseller">ìŠ¤í…Œë””ì…€ëŸ¬</option>
+                                <option value="newbook">ì‹ ê°„</option>
+                                <option value="on_sale">íŒë§¤ì¤‘</option>
+                                <option value="buy_out" selected>í’ˆì ˆ</option>
+                                <option value="out_of_print">ì ˆíŒ</option>
                             </select>
                             <input type="hidden" name="h_goods_status" value="${goods.goodsStatus }"/>
                         </td>
                         <td>
-                            <input type="button" value="¼öÁ¤¹İ¿µ"
+                            <input type="button" value="ìˆ˜ì •ë°˜ì˜"
                                    onClick="fn_modify_goods('${goods.goodsId }','goodsStatus')"/>
                         </td>
                     </tr>
@@ -365,35 +370,35 @@
                 </table>
             </DIV>
             <DIV class="tab_content" id="tab2">
-                <h4>Ã¥¸ñÂ÷</h4>
+                <h4>ì±…ëª©ì°¨</h4>
                 <table>
                     <tr>
-                        <td>»óÇ°¸ñÂ÷</td>
+                        <td>ìƒí’ˆëª©ì°¨</td>
                         <td><textarea rows="100" cols="80" name="goodsContentsOrder">
                             ${goods.goodsContentsOrder }
                         </textarea>
                         </td>
                         <td>
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="button" value="¼öÁ¤¹İ¿µ"
+                            <input type="button" value="ìˆ˜ì •ë°˜ì˜"
                                    onClick="fn_modify_goods('${goods.goodsId }','goodsContentsOrder')"/>
                         </td>
                     </tr>
                 </table>
             </DIV>
             <DIV class="tab_content" id="tab3">
-                <H4>»óÇ° ÀúÀÚ ¼Ò°³</H4>
+                <H4>ìƒí’ˆ ì €ì ì†Œê°œ</H4>
                 <P>
                 <table>
                     <tr>
-                        <td>»óÇ° ÀúÀÚ ¼Ò°³</td>
+                        <td>ìƒí’ˆ ì €ì ì†Œê°œ</td>
                         <td><textarea rows="100" cols="80" name="goodsWriterIntro">
                             ${goods.goodsWriterIntro }
                         </textarea>
                         </td>
                         <td>
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="button" value="¼öÁ¤¹İ¿µ"
+                            <input type="button" value="ìˆ˜ì •ë°˜ì˜"
                                    onClick="fn_modify_goods('${goods.goodsId }','goodsWriterIntro')"/>
                         </td>
                     </tr>
@@ -401,18 +406,18 @@
                 </P>
             </DIV>
             <DIV class="tab_content" id="tab4">
-                <H4>»óÇ°¼Ò°³</H4>
+                <H4>ìƒí’ˆì†Œê°œ</H4>
                 <P>
                 <table>
                     <tr>
-                        <td>»óÇ°¼Ò°³</td>
+                        <td>ìƒí’ˆì†Œê°œ</td>
                         <td><textarea rows="100" cols="80" name="goodsIntro">
                             ${goods.goodsIntro }
                         </textarea>
                         </td>
                         <td>
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="button" value="¼öÁ¤¹İ¿µ"
+                            <input type="button" value="ìˆ˜ì •ë°˜ì˜"
                                    onClick="fn_modify_goods('${goods.goodsId }','goodsIntro')"/>
                         </td>
                     </tr>
@@ -420,7 +425,7 @@
                 </P>
             </DIV>
             <DIV class="tab_content" id="tab5">
-                <H4>ÃâÆÇ»ç »óÇ° Æò°¡</H4>
+                <H4>ì¶œíŒì‚¬ ìƒí’ˆ í‰ê°€</H4>
                 <P>
                 <table>
                     <tr>
@@ -430,7 +435,7 @@
                         </td>
                         <td>
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="button" value="¼öÁ¤¹İ¿µ"
+                            <input type="button" value="ìˆ˜ì •ë°˜ì˜"
                                    onClick="fn_modify_goods('${goods.goodsId }','goodsPublisherComment')"/>
                         </td>
                     </tr>
@@ -438,17 +443,17 @@
                 </P>
             </DIV>
             <DIV class="tab_content" id="tab6">
-                <H4>ÃßÃµ»ç</H4>
+                <H4>ì¶”ì²œì‚¬</H4>
                 <table>
                     <tr>
-                        <td>ÃßÃµ»ç</td>
+                        <td>ì¶”ì²œì‚¬</td>
                         <td><textarea rows="100" cols="80" name="goodsRecommendation">
                             ${goods.goodsRecommendation }
                         </textarea>
                         </td>
                         <td>
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="button" value="¼öÁ¤¹İ¿µ"
+                            <input type="button" value="ìˆ˜ì •ë°˜ì˜"
                                    onClick="fn_modify_goods('${goods.goodsId }','goodsRecommendation')"/>
                         </td>
                     </tr>
@@ -456,14 +461,14 @@
             </DIV>
             <DIV class="tab_content" id="tab7">
                 <form id="FILE_FORM" method="post" enctype="multipart/form-data">
-                    <h4>»óÇ°ÀÌ¹ÌÁö</h4>
+                    <h4>ìƒí’ˆì´ë¯¸ì§€</h4>
                     <table>
                         <tr>
                             <c:forEach var="item" items="${imageFileList }" varStatus="itemNum">
                             <c:choose>
                             <c:when test="${item.fileType=='main_image' }">
                         <tr>
-                            <td>¸ŞÀÎ ÀÌ¹ÌÁö</td>
+                            <td>ë©”ì¸ ì´ë¯¸ì§€</td>
                             <td>
                                 <input type="file" id="main_image" name="main_image"
                                        onchange="readURL(this,'preview${itemNum.count}');"/>
@@ -479,7 +484,7 @@
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                             </td>
                             <td>
-                                <input type="button" value="¼öÁ¤"
+                                <input type="button" value="ìˆ˜ì •"
                                        onClick="modifyImageFile('main_image','${item.goodsId}','${item.goodsId}','${item.fileType}'),'fileName'"/>
                             </td>
                         </tr>
@@ -491,7 +496,7 @@
                         </c:when>
                         <c:otherwise>
                             <tr id="${itemNum.count-1}">
-                                <td>»ó¼¼ ÀÌ¹ÌÁö${itemNum.count-1 }</td>
+                                <td>ìƒì„¸ ì´ë¯¸ì§€${itemNum.count-1 }</td>
                                 <td>
                                     <input type="file" name="detail_image" id="detail_image"
                                            onchange="readURL(this,'preview${itemNum.count}');"/>
@@ -507,9 +512,9 @@
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                 </td>
                                 <td>
-                                    <input type="button" value="¼öÁ¤"
+                                    <input type="button" value="ìˆ˜ì •"
                                            onClick="modifyImageFile('detail_image','${item.goodsId}','${item.goodsId}','${item.fileType}')"/>
-                                    <input type="button" value="»èÁ¦"
+                                    <input type="button" value="ì‚­ì œ"
                                            onClick="deleteImageFile('${item.goodsId}','${item.goodsId}','${item.fileName}','${itemNum.count-1}')"/>
                                 </td>
                             </tr>
@@ -531,7 +536,7 @@
                         <tr>
                             <td align=center colspan=2>
 
-                                <input type="button" value="ÀÌ¹ÌÁöÆÄÀÏÃß°¡ÇÏ±â" onClick="fn_addFile()"/>
+                                <input type="button" value="ì´ë¯¸ì§€íŒŒì¼ì¶”ê°€í•˜ê¸°" onClick="fn_addFile()"/>
                             </td>
                         </tr>
                     </table>

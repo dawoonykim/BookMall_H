@@ -186,8 +186,10 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
         goodsMap.put("goodsId", goodsId);
         goodsMap.put(attribute, value);
 
+        log.info("AdminGoodsControllerImpl modifyGoodsInfo adminGoodsService.modifyGoodsInfo(goodsMap) 전");
         adminGoodsService.modifyGoodsInfo(goodsMap);
-
+        log.info("AdminGoodsControllerImpl modifyGoodsInfo adminGoodsService.modifyGoodsInfo(goodsMap) 후");
+        
         String message = null;
         ResponseEntity resEntity;
         HttpHeaders responseHeader = new HttpHeaders();

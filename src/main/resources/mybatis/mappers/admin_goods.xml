@@ -204,7 +204,7 @@
                 goods_price=#{goodsPrice}
             </if>
             <if test="goodsPublishedDate!='' and goodsPublishedDate!=null">
-                goods_published_date=#{goodsPublishedDate}
+                goods_published_date=to_date(#{goodsPublishedDate},'YYYY-MM-DD')
             </if>
             <if test="goodsSalesPrice!='' and goodsSalesPrice!=null">
                 goods_sales_price=#{goodsSalesPrice}
@@ -222,7 +222,7 @@
                 goods_delivery_price=#{goodsDeliveryPrice}
             </if>
             <if test="goodsDeliveryDate!='' and goodsDeliveryDate!=null">
-                goods_delivery_date=#{goodsDeliveryDate}
+                goods_delivery_date=to_date(#{goodsDeliveryDate},'YYYY-MM-DD')
             </if>
             <if test="goodsStatus!='' and goodsStatus!=null">
                 goods_status=#{goodsStatus}
@@ -251,7 +251,5 @@
         where GOODS_ID = #{goodsId}
           and IMAGE_ID = #{imageId}
     </update>
-
-
 
 </mapper>

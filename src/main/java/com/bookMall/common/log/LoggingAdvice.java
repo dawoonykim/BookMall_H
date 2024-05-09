@@ -1,7 +1,5 @@
 package com.bookMall.common.log;
 
-import java.util.Arrays;
-
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -12,82 +10,80 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+
 @Component
 @Aspect
 public class LoggingAdvice {
-	private static final Logger log = LoggerFactory.getLogger(LoggingAdvice.class);
+    private static final Logger log = LoggerFactory.getLogger(LoggingAdvice.class);
 
-	// target ¸Ş¼­µåÀÇ ÆÄ¶ó¹ÌÅÍµî Á¤º¸¸¦ Ãâ·ÂÇÕ´Ï´Ù.
-	@Before("execution(* com.bookMall.*.service.*.*(..)) || "
-			+ "execution(* com.bookMall.*.dao.*.*(..))")
-	public void startLog(JoinPoint jp) {
+    // target ë©”ì„œë“œì˜ íŒŒë¼ë¯¸í„°ë“± ì •ë³´ë¥¼ ì¶œë ¥í•©ë‹ˆë‹¤.
+    @Before("execution(* com.bookMall.*.service.*.*(..)) || "
+            + "execution(* com.bookMall.*.dao.*.*(..))")
+    public void startLog(JoinPoint jp) {
 
-		log.info("before logging advice");
-		log.info("-------------------------------------");
-		log.info("-------------------------------------");
+        log.info("-------------------------------------");
+        log.info("-------------------------------------");
 
-		// Àü´ŞµÇ´Â ¸ğµç ÆÄ¶ó¹ÌÅÍµéÀ» ObjectÀÇ ¹è¿­·Î °¡Á®¿É´Ï´Ù.
-		log.info("1:" + Arrays.toString(jp.getArgs()));
+        // ì „ë‹¬ë˜ëŠ” ëª¨ë“  íŒŒë¼ë¯¸í„°ë“¤ì„ Objectì˜ ë°°ì—´ë¡œ ê°€ì ¸ì˜µë‹ˆë‹¤.
+        log.info("1:" + Arrays.toString(jp.getArgs()));
 
-		//ÇØ´ç AdviceÀÇ Å¸ÀÔÀ» ¾Ë¾Æ³À´Ï´Ù.
-		log.info("2:" + jp.getKind());
+        //í•´ë‹¹ Adviceì˜ íƒ€ì…ì„ ì•Œì•„ëƒ…ë‹ˆë‹¤.
+        log.info("2:" + jp.getKind());
 
-		// ½ÇÇàÇÏ´Â ´ë»ó °´Ã¼ÀÇ ¸Ş¼Òµå¿¡ ´ëÇÑ Á¤º¸¸¦ ¾Ë¾Æ³¾ ¶§ »ç¿ëÇÕ´Ï´Ù.
-		log.info("3:" + jp.getSignature().getName());
+        // ì‹¤í–‰í•˜ëŠ” ëŒ€ìƒ ê°ì²´ì˜ ë©”ì†Œë“œì— ëŒ€í•œ ì •ë³´ë¥¼ ì•Œì•„ë‚¼ ë•Œ ì‚¬ìš©í•©ë‹ˆë‹¤.
+        log.info("3:" + jp.getSignature().getName());
 
-		// target °´Ã¼¸¦ ¾Ë¾Æ³¾ ¶§ »ç¿ëÇÕ´Ï´Ù.
-		log.info("4:" + jp.getTarget().toString());
+        // target ê°ì²´ë¥¼ ì•Œì•„ë‚¼ ë•Œ ì‚¬ìš©í•©ë‹ˆë‹¤.
+        log.info("4:" + jp.getTarget().toString());
 
-		// Advice¸¦ ÇàÇÏ´Â °´Ã¼¸¦ ¾Ë¾Æ³¾ ¶§ »ç¿ëÇÕ´Ï´Ù.
-		log.info("5:" + jp.getThis().toString());
-
+        // Adviceë¥¼ í–‰í•˜ëŠ” ê°ì²´ë¥¼ ì•Œì•„ë‚¼ ë•Œ ì‚¬ìš©í•©ë‹ˆë‹¤.
+        log.info("5:" + jp.getThis().toString());
 
 
-	}
+    }
 
-	@After("execution(* com.bookMall.*.service.*.*(..)) || "
-			+ "execution(* com.bookMall.*.*.dao.*.*(..))")
-	public void after(JoinPoint jp) {
-		log.info("-------------------------------------");
-		log.info("-------------------------------------");
+    @After("execution(* com.bookMall.*.service.*.*(..)) || "
+            + "execution(* com.bookMall.*.*.dao.*.*(..))")
+    public void after(JoinPoint jp) {
+        log.info("-------------------------------------");
+        log.info("-------------------------------------");
 
-		// Àü´ŞµÇ´Â ¸ğµç ÆÄ¶ó¹ÌÅÍµéÀ» ObjectÀÇ ¹è¿­·Î °¡Á®¿É´Ï´Ù.
-		log.info("1:" + Arrays.toString(jp.getArgs()));
+        // ì „ë‹¬ë˜ëŠ” ëª¨ë“  íŒŒë¼ë¯¸í„°ë“¤ì„ Objectì˜ ë°°ì—´ë¡œ ê°€ì ¸ì˜µë‹ˆë‹¤.
+        log.info("1:" + Arrays.toString(jp.getArgs()));
 
-		// ÇØ´ç AdviceÀÇ Å¸ÀÔÀ» ¾Ë¾Æ³À´Ï´Ù.
-		log.info("2:" + jp.getKind());
+        // í•´ë‹¹ Adviceì˜ íƒ€ì…ì„ ì•Œì•„ëƒ…ë‹ˆë‹¤.
+        log.info("2:" + jp.getKind());
 
-		// ½ÇÇàÇÏ´Â ´ë»ó °´Ã¼ÀÇ ¸Ş¼Òµå¿¡ ´ëÇÑ Á¤º¸¸¦ ¾Ë¾Æ³¾ ¶§ »ç¿ëÇÕ´Ï´Ù.
-		log.info("3:" + jp.getSignature().getName());
+        // ì‹¤í–‰í•˜ëŠ” ëŒ€ìƒ ê°ì²´ì˜ ë©”ì†Œë“œì— ëŒ€í•œ ì •ë³´ë¥¼ ì•Œì•„ë‚¼ ë•Œ ì‚¬ìš©í•©ë‹ˆë‹¤.
+        log.info("3:" + jp.getSignature().getName());
 
-		// target °´Ã¼¸¦ ¾Ë¾Æ³¾ ¶§ »ç¿ëÇÕ´Ï´Ù.
-		log.info("4:" + jp.getTarget().toString());
+        // target ê°ì²´ë¥¼ ì•Œì•„ë‚¼ ë•Œ ì‚¬ìš©í•©ë‹ˆë‹¤.
+        log.info("4:" + jp.getTarget().toString());
 
-		// Advice¸¦ ÇàÇÏ´Â °´Ã¼¸¦ ¾Ë¾Æ³¾ ¶§ »ç¿ëÇÕ´Ï´Ù
-		log.info("5:" + jp.getThis().toString());
+        // Adviceë¥¼ í–‰í•˜ëŠ” ê°ì²´ë¥¼ ì•Œì•„ë‚¼ ë•Œ ì‚¬ìš©í•©ë‹ˆë‹¤
+        log.info("5:" + jp.getThis().toString());
 
+        log.info("after logging advice");
+    }
 
-		log.info("after logging advice");
-	}
+    // target ë©”ì†Œë“œì˜ ë™ì‘ ì‹œê°„ì„ ì¸¡ì •í•©ë‹ˆë‹¤.
+    @Around("execution(* com.bookMall.*.service.*.*(..)) || "
+            + "execution(* com.bookMall.*.dao.*.*(..))")
+    public Object timeLog(ProceedingJoinPoint pjp) throws Throwable {
+        long startTime = System.currentTimeMillis();
+        log.info(Arrays.toString(pjp.getArgs()));
 
+        // ì‹¤ì œ íƒ€ê²Ÿì„ ì‹¤í–‰í•˜ëŠ” ë¶€ë¶„ì´ë‹¤. ì´ ë¶€ë¶„ì´ ì—†ìœ¼ë©´ adviceê°€ ì ìš©ëœ ë©”ì†Œë“œê°€ ë™ì‘í•˜ì§€ì•ŠìŠµë‹ˆë‹¤.
+        Object result = pjp.proceed(); // proceedëŠ” Exception ë³´ë‹¤ ìƒìœ„ Throwableì„ ì²˜ë¦¬í•´ì•¼ í•©ë‹ˆë‹¤.
 
-	// target ¸Ş¼ÒµåÀÇ µ¿ÀÛ ½Ã°£À» ÃøÁ¤ÇÕ´Ï´Ù.
-	@Around("execution(* com.bookMall.*.service.*.*(..)) || "
-			+ "execution(* com.bookMall.*.dao.*.*(..))")
-	public Object timeLog(ProceedingJoinPoint pjp) throws Throwable {
-		long startTime = System.currentTimeMillis();
-		log.info(Arrays.toString(pjp.getArgs()));
+        long endTime = System.currentTimeMillis();
+        // target ë©”ì†Œë“œì˜ ë™ì‘ ì‹œê°„ì„ ì¶œë ¥í•œë‹¤.
+        log.info(pjp.getSignature().getName() + " : " + (endTime - startTime));
+        log.info("==============================");
 
-		// ½ÇÁ¦ Å¸°ÙÀ» ½ÇÇàÇÏ´Â ºÎºĞÀÌ´Ù. ÀÌ ºÎºĞÀÌ ¾øÀ¸¸é advice°¡ Àû¿ëµÈ ¸Ş¼Òµå°¡ µ¿ÀÛÇÏÁö¾Ê½À´Ï´Ù.
-		Object result = pjp.proceed(); // proceed´Â Exception º¸´Ù »óÀ§ ThrowableÀ» Ã³¸®ÇØ¾ß ÇÕ´Ï´Ù.
-
-		long endTime = System.currentTimeMillis();
-		// target ¸Ş¼ÒµåÀÇ µ¿ÀÛ ½Ã°£À» Ãâ·ÂÇÑ´Ù.
-		log.info(pjp.getSignature().getName() + " : " + (endTime - startTime)+"ms");
-		log.info("==============================");
-
-		// Around¸¦ »ç¿ëÇÒ °æ¿ì ¹İµå½Ã Object¸¦ ¸®ÅÏÇØ¾ß ÇÕ´Ï´Ù.
-		return result;
-	}
+        // Aroundë¥¼ ì‚¬ìš©í•  ê²½ìš° ë°˜ë“œì‹œ Objectë¥¼ ë¦¬í„´í•´ì•¼ í•©ë‹ˆë‹¤.
+        return result;
+    }
 
 }
