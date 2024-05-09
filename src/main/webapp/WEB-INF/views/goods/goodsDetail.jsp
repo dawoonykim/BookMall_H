@@ -75,6 +75,7 @@
                 },
                 error: function (data, textStatus) {
                     alert("로그인하셔야 합니다.");
+                    window.location.href = "${contextPath}/member/loginForm.do";
                 },
                 complete: function (data, textStatus) {
                     //alert("작업을완료 했습니다");
