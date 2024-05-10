@@ -73,15 +73,15 @@
 <body>
 <div id="sticky" >
 	<ul>
-		<li><a href="#">
+		<li><a href="https://www.facebook.com">
 			<img	width="24" height="24" src="${contextPath}/resources/image/facebook_icon.png">
-			페이스북
+			 페이스북
 		</a></li>
-		<li><a href="#">
+		<li><a href="https://www.twitter.com">
 			<img width="24" height="24" src="${contextPath}/resources/image/twitter_icon.png">
 			트위터
 		</a></li>
-		<li><a href="#">
+		<li><a href="https://rss.com/blog/how-do-rss-feeds-work/">
 			<img	width="24" height="24" src="${contextPath}/resources/image/rss_icon.png">
 			RSS 피드
 		</a></li>
