@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,9 +25,15 @@ public class MemberDAOImpl implements MemberDAO {
     public MemberVO login(Map<String, String> loginMap) throws DataAccessException {
         log.info("MemberDAOImpl login(Map<String, String>) loginMap : " + loginMap);
         MemberVO memberVO = (MemberVO) session.selectOne("mapper.member.login", loginMap);
-        log.info("MemberDAOImpl memberVO : " + memberVO.getMemberId() + " " + memberVO.getMemberPw());
+        if (memberVO != null) {
+            log.info("MemberDAOImpl memberVO : " + memberVO.getMemberId() + " " + memberVO.getMemberPw());
+        } else {
+            log.info("MemberDAOImpl memberVO is null");
+            memberVO = new MemberVO();
+        }
         return memberVO;
     }
+
 
 
     @Override

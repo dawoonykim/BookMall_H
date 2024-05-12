@@ -39,31 +39,32 @@ public class MemberControllerImpl extends BaseController implements MemberContro
         log.info("MemberControllerImpl loginMap : " + loginMap);
         ModelAndView mav = new ModelAndView();
         log.info("MemberControllerImpl mav : " + mav);
-        memberVO=memberService.login(loginMap);
-        log.info("MemberControllerImpl memberVO : " + memberVO.getMemberId() + " " + memberVO.getMemberPw());
-        log.info("is MemberControllerImpl memberVO not null? " + (memberVO != null));
-        log.info("is MemberControllerImpl memberVO.getMemberId() not null? " + (memberVO.getMemberId() != null));
-        if(memberVO!= null && memberVO.getMemberId()!=null){
-            HttpSession session=request.getSession();
-//            session=request.getSession();
+        memberVO = memberService.login(loginMap);
+
+        if (memberVO != null && memberVO.getMemberId() != null) {
+            // 로그인 성공
+            HttpSession session = request.getSession();
             log.info("MemberControllerImpl session : " + session);
             session.setAttribute("isLogOn", true);
-            session.setAttribute("memberInfo",memberVO);
+            session.setAttribute("memberInfo", memberVO);
 
-            String action=(String)session.getAttribute("action");
+            String action = (String) session.getAttribute("action");
             log.info("MemberControllerImpl action : " + action);
-            if(action!=null && action.equals("/order/orderEachGoods.do")){
-                mav.setViewName("forward:"+action);
-            }else{
+            if (action != null && action.equals("/order/orderEachGoods.do")) {
+                mav.setViewName("forward:" + action);
+            } else {
                 mav.setViewName("redirect:/main/main.do");
             }
-        }else{
-            String message="아이디나  비밀번호가 틀립니다. 다시 로그인해주세요";
+        } else {
+            // 로그인 실패
+            String message = "아이디나 비밀번호가 틀립니다. 다시 로그인해주세요";
             mav.addObject("message", message);
             mav.setViewName("/member/loginForm");
         }
+
         return mav;
     }
+
 
 
     @Override
