@@ -27,7 +27,7 @@
         <result property="goodsDeliveryDate" column="goods_delivery_date"/>
         <result property="goodsStatus" column="goods_status"/>
         <result property="goodsIntro" column="goods_intro"/>
-        <result property="goodsWriteIntro" column="goods_writer_intro"/>
+        <result property="goodsWriterIntro" column="goods_writer_intro"/>
         <result property="goodsContentsOrder" column="goods_contents_order"/>
         <result property="goodsFileName" column="fileName"/>
     </resultMap>
@@ -56,7 +56,11 @@
 
     <select id="selectCartList" parameterType="cartVO" resultMap="cartResult">
         <![CDATA[
-        select cart_id as cartId, goods_id as goodsId, member_id as memberId, credate as creDate, cart_goods_qty as cartGoodsQty
+        select cart_id        as cartId,
+               goods_id       as goodsId,
+               member_id      as memberId,
+               credate        as creDate,
+               cart_goods_qty as cartGoodsQty
         from T_SHOPPING_CART
         where MEMBER_ID = #{memberId}
         ]]>
@@ -80,7 +84,18 @@
     </select>
 
     <delete id="deleteCartGoods" parameterType="int">
-        delete from T_SHOPPING_CART where CART_ID=#{cartId}
+        delete
+        from T_SHOPPING_CART
+        where CART_ID = #{cartId}
     </delete>
+
+    <update id="updateCartGoodsQty" parameterType="cartVO">
+	    <![CDATA[
+        update T_SHOPPING_CART
+        set CART_GOODS_QTY=#{cartGoodsQty}
+        where MEMBER_ID = #{memberId}
+          and GOODS_ID = #{goodsId}
+        ]]>
+	</update>
 
 </mapper>

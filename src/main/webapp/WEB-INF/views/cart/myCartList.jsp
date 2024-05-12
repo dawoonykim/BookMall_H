@@ -274,57 +274,7 @@
 
 <table width=80% class="list_view" style="background:#cacaff">
     <tbody>
-    <tr align=center class="fixed">
-        <td class="fixed">총 상품수</td>
-        <td>총 상품금액</td>
-        <td></td>
-        <td>총 배송비</td>
-        <td></td>
-        <td>총 할인 금액</td>
-        <td></td>
-        <td>최종 결제금액</td>
-    </tr>
-    <tr cellpadding=40 align=center>
-        <td id="">
-            <p id="p_totalGoodsNum">${totalGoodsNum}개 </p>
-            <input id="h_totalGoodsNum" type="hidden" value="${totalGoodsNum}"/>
-        </td>
-        <td>
-            <p id="p_totalGoodsPrice">
-                <fmt:formatNumber value="${totalGoodsPrice}" type="number" var="total_goods_price"/>
-                ${total_goods_price}원
-            </p>
-            <input id="h_totalGoodsPrice" type="hidden" value="${totalGoodsPrice}"/>
-        </td>
-        <td>
-            <img width="25" alt="" src="${contextPath}/resources/image/plus.jpg">
-        </td>
-        <td>
-            <p id="p_totalDeliveryPrice">${totalDeliveryPrice }원 </p>
-            <input id="h_totalDeliveryPrice" type="hidden" value="${totalDeliveryPrice}"/>
-        </td>
-        <td>
-            <img width="25" alt="" src="${contextPath}/resources/image/minus.jpg">
-        </td>
-        <td>
-            <p id="p_totalSalesPrice">
-                ${totalDiscountedPrice}원
-            </p>
-            <input id="h_totalSalesPrice" type="hidden" value="${totalSalesPrice}"/>
-        </td>
-        <td>
-            <img width="25" alt="" src="${contextPath}/resources/image/equal.jpg">
-        </td>
-        <td>
-            <p id="p_final_totalPrice">
-                <fmt:formatNumber value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" type="number"
-                                  var="total_price"/>
-                ${total_price}원
-            </p>
-            <input id="h_final_totalPrice" type="hidden"
-                   value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}"/>
-        </td>
-    </tr>
+
     </tbody>
 </table>
 <center>
@@ -332,7 +282,7 @@
     <a href="javascript:fn_order_all_cart_goods()">
         <img width="75" alt="" src="${contextPath}/resources/image/btn_order_final.jpg">
     </a>
-    <a href="#">
+    <a href="${contextPath}/main/main.do">
         <img width="75" alt="" src="${contextPath}/resources/image/btn_shoping_continue.jpg">
     </a>
 </center>

@@ -3,6 +3,7 @@ package com.bookMall.goods.vo;
 import java.sql.Date;
 
 public class GoodsVO {
+
     private int goodsId;
     private String goodsSort;
     private String goodsTitle;
@@ -23,10 +24,8 @@ public class GoodsVO {
     private String goodsRecommendation;
     private String goodsContentsOrder;
     private Date goodsCredate;
-
     private String goodsFileName;
     private Date goodsEnteredDate;
-
 
     public GoodsVO() {
     }
@@ -155,8 +154,16 @@ public class GoodsVO {
         return goodsWriterIntro;
     }
 
-    public void setGoodsWriterIntro(String goodsWriteIntro) {
-        this.goodsWriterIntro = goodsWriteIntro;
+    public void setGoodsWriterIntro(String goodsWriterIntro) {
+        this.goodsWriterIntro = goodsWriterIntro;
+    }
+
+    public String getGoodsPublisherComment() {
+        return goodsPublisherComment;
+    }
+
+    public void setGoodsPublisherComment(String goodsPublisherComment) {
+        this.goodsPublisherComment = goodsPublisherComment;
     }
 
     public String getGoodsRecommendation() {
@@ -197,13 +204,5 @@ public class GoodsVO {
 
     public void setGoodsEnteredDate(Date goodsEnteredDate) {
         this.goodsEnteredDate = goodsEnteredDate;
-    }
-
-    public String getGoodsPublisherComment() {
-        return goodsPublisherComment;
-    }
-
-    public void setGoodsPublisherComment(String goodsPublisherComment) {
-        this.goodsPublisherComment = goodsPublisherComment;
     }
 }

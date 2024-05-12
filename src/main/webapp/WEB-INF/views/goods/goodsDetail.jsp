@@ -234,7 +234,6 @@
         </li>
         <li><a class="cart" href="javascript:add_cart('${goods.goodsId }')">장바구니</a></li>
 
-        <li><a class="wish" href="#">위시리스트</a></li>
     </ul>
 </div>
 <div class="clear"></div>
