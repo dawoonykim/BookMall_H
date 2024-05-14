@@ -35,13 +35,14 @@
         <result property="orderTotalPrice" column="order_total_price"/>
         <result property="finalTotalPrice" column="final_total_price"/>
         <result property="goodsQty" column="goods_qty"/>
+        <result property="goodsPrice" column="goods_price"/>
+        <result property="goodsDeliveryPrice" column="goods_delivery_price"/>
+        <result property="goodsPoint" column="goods_point"/>
 
     </resultMap>
 
     <resultMap id="GoodsResult" type="GoodsVO">
-        <result property="goodsPrice" column="goods_price"/>
-        <result property="goodsDeliveryPrice" column="goods_delivery_price"/>
-        <result property="goodsPoint" column="goods_point"/>
+
     </resultMap>
 
     <insert id="insertNewOrder" parameterType="orderVO">
@@ -114,4 +115,11 @@
         from T_SHOPPING_CART
         where GOODS_ID = #{goodsId}
     </delete>
+
+    <select id="selectGoodsInt" resultType="int">
+        <![CDATA[
+        select GOODS_PRICE as goodsPrice, GOODS_DELIVERY_PRICE as goodsDeliveryPrice, GOODS_POINT as goodsPoint
+        from T_SHOPPING_GOODS;
+        ]]>
+    </select>
 </mapper>

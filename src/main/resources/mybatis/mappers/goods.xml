@@ -39,7 +39,26 @@
     <select id="selectGoodsList" parameterType="String" resultMap="goodsResult">
         <![CDATA[
         select t.*
-        from (select g.*, d.fileName
+        from (select g.GOODS_ID             as goodsId,
+                     g.GOODS_SORT           as goodsSort,
+                     g.GOODS_TITLE          as goodsTitle,
+                     g.GOODS_WRITER         as goodsWriter,
+                     g.GOODS_PUBLISHER      as goodsPublisher,
+                     g.GOODS_PRICE          as goodsPrice,
+                     g.GOODS_SALES_PRICE    as goodsSalesPrice,
+                     g.GOODS_PUBLISHED_DATE as goodsPublishedDate,
+                     g.GOODS_TOTAL_PAGE     as goodsTotalPage,
+                     g.GOODS_ISBN           as goodsIsbn,
+                     g.GOODS_DELIVERY_PRICE as goodsDeliveryPrice,
+                     g.GOODS_DELIVERY_DATE  as goodsDeliveryDate,
+                     g.GOODS_STATUS         as goodsStatus,
+                     g.GOODS_INTRO          as goodsIntro,
+                     g.GOODS_WRITER_INTRO   as goodsWriterIntro,
+                     g.GOODS_CONTENTS_ORDER as goodsContentsOrder,
+                     g.GOODS_POINT          as goodsPoint,
+                     g.GOODS_PUBLISHER_COMMENT as goodsPublisherComment,
+                     g.GOODS_RECOMMENDATION as goodsRecommendation,
+                     d.FILENAME as fileName
               from t_shopping_goods g,
                    t_goods_detail_image d
               where g.goods_id = d.goods_id
@@ -52,7 +71,26 @@
 
     <select id="selectGoodsDetail" parameterType="String" resultMap="goodsResult">
         <![CDATA[
-        select g.*, d.fileName
+        select g.GOODS_ID             as goodsId,
+               g.GOODS_SORT           as goodsSort,
+               g.GOODS_TITLE          as goodsTitle,
+               g.GOODS_WRITER         as goodsWriter,
+               g.GOODS_PUBLISHER      as goodsPublisher,
+               g.GOODS_PRICE          as goodsPrice,
+               g.GOODS_SALES_PRICE    as goodsSalesPrice,
+               g.GOODS_PUBLISHED_DATE as goodsPublishedDate,
+               g.GOODS_TOTAL_PAGE     as goodsTotalPage,
+               g.GOODS_ISBN           as goodsIsbn,
+               g.GOODS_DELIVERY_PRICE as goodsDeliveryPrice,
+               g.GOODS_DELIVERY_DATE  as goodsDeliveryDate,
+               g.GOODS_STATUS         as goodsStatus,
+               g.GOODS_INTRO          as goodsIntro,
+               g.GOODS_WRITER_INTRO   as goodsWriterIntro,
+               g.GOODS_CONTENTS_ORDER as goodsContentsOrder,
+               g.GOODS_POINT          as goodsPoint,
+               g.GOODS_PUBLISHER_COMMENT as goodsPublisherComment,
+               g.GOODS_RECOMMENDATION as goodsRecommendation,
+               d.FILENAME as fileName
         from T_SHOPPING_GOODS g,
              T_GOODS_DETAIL_IMAGE d
         where g.GOODS_ID = d.GOODS_ID
@@ -64,7 +102,7 @@
 
     <select id="selectGoodsDetailImage" parameterType="String" resultMap="imageResult">
         <![CDATA[
-        select *
+        select IMAGE_ID as imageId, GOODS_ID as goodsId, FILENAME as fileName, FILETYPE as fileType, REG_ID as regId
         from T_GOODS_DETAIL_IMAGE
         where FILETYPE = 'detail_image1'
           and GOODS_ID = #{goodsID}
@@ -73,7 +111,26 @@
 
     <select id="selectGoodsBySearchWord" parameterType="String" resultMap="goodsResult">
         <![CDATA[
-        select g.*, d.filename
+        select g.GOODS_ID             as goodsId,
+               g.GOODS_SORT           as goodsSort,
+               g.GOODS_TITLE          as goodsTitle,
+               g.GOODS_WRITER         as goodsWriter,
+               g.GOODS_PUBLISHER      as goodsPublisher,
+               g.GOODS_PRICE          as goodsPrice,
+               g.GOODS_SALES_PRICE    as goodsSalesPrice,
+               g.GOODS_PUBLISHED_DATE as goodsPublishedDate,
+               g.GOODS_TOTAL_PAGE     as goodsTotalPage,
+               g.GOODS_ISBN           as goodsIsbn,
+               g.GOODS_DELIVERY_PRICE as goodsDeliveryPrice,
+               g.GOODS_DELIVERY_DATE  as goodsDeliveryDate,
+               g.GOODS_STATUS         as goodsStatus,
+               g.GOODS_INTRO          as goodsIntro,
+               g.GOODS_WRITER_INTRO   as goodsWriterIntro,
+               g.GOODS_CONTENTS_ORDER as goodsContentsOrder,
+               g.GOODS_POINT          as goodsPoint,
+               g.GOODS_PUBLISHER_COMMENT as goodsPublisherComment,
+               g.GOODS_RECOMMENDATION as goodsRecommendation,
+               d.FILENAME as fileName
         from T_SHOPPING_GOODS g,
              T_GOODS_DETAIL_IMAGE d
         where g.GOODS_ID = d.GOODS_ID

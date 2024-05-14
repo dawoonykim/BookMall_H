@@ -2,6 +2,7 @@ package com.bookMall.cart.controller;
 
 import com.bookMall.cart.service.CartService;
 import com.bookMall.cart.vo.CartVO;
+import com.bookMall.goods.vo.GoodsVO;
 import com.bookMall.member.vo.MemberVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +46,7 @@ public class CartControllerImpl implements CartController {
         cartVO.setMemberId(member_id);
         boolean isAlreadyExisted = cartService.findCartGoods(cartVO);
         log.info("CartControllerImpl addGoodsInCart isAlreadyExisted : " + isAlreadyExisted);
-        if (isAlreadyExisted == true) {
+        if (isAlreadyExisted) {
             return "alreadyExisted";
         } else {
             log.info("여기는 addGoodsInCart 동작이여");
@@ -66,10 +67,28 @@ public class CartControllerImpl implements CartController {
         memberVO = (MemberVO) session.getAttribute("memberInfo");
         log.info("CartControllerImpl myCartMain memberVO : " + memberVO.getMemberId() + " " + memberVO.getMemberPw() + " " + memberVO.getMemberName());
         String memberId = memberVO.getMemberId();
-        log.info("CartControllerImpl myCartMain memberId" + memberId);
+
+        // goodsVO 객체 생성 및 필드 초기화
+        GoodsVO goodsVO = new GoodsVO();
+        String goodsId = String.valueOf(goodsVO.getGoodsId());
+        log.info("CartControllerImpl myCartMain goodsId : " + goodsId);
+        int goodsPrice = goodsVO.getGoodsPrice();
+        log.info("CartControllerImpl myCartMain goodsPrice : " + goodsPrice);
+        int goodsDeliveryPrice = goodsVO.getGoodsDeliveryPrice();
+        log.info("CartControllerImpl myCartMain goodsDeliveryPrice : " + goodsDeliveryPrice);
+        int goodsSalesPrice = goodsVO.getGoodsSalesPrice();
+        log.info("CartControllerImpl myCartMain goodsSalesPrice : " + goodsSalesPrice);
+
+        log.info("CartControllerImpl myCartMain memberId : " + memberId);
         cartVO.setMemberId(memberId);
-        log.info("CartControllerImpl myCartMain cartVO.setMemberId(memberId)" + cartVO.getMemberId());
+        log.info("CartControllerImpl myCartMain cartVO.setMemberId(memberId) : " + cartVO.getMemberId());
         log.info("여기까지는 동작합니다1.");
+
+        // 필요한 값들을 cartVO에 설정
+        cartVO.setGoodsPrice(goodsPrice);
+        cartVO.setGoodsDeliveryPrice(goodsDeliveryPrice);
+        cartVO.setGoodsSalesPrice(goodsSalesPrice);
+
         Map<String, List> cartMap = cartService.myCartList(cartVO);
         log.info("여기까지는 동작합니다2.");
         log.info("CartControllerImpl myCartMain cartMap : " + cartMap);
@@ -77,13 +96,14 @@ public class CartControllerImpl implements CartController {
         return mav;
     }
 
+
     @Override
     @RequestMapping(value = "/removeCartGoods.do", method = RequestMethod.POST)
     public ModelAndView removeCartGoods(@RequestParam("cartId") int cart_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mav = new ModelAndView();
-        log.info("CartControllerImpl removeCartGoods cartId : "+cart_id);
+        log.info("CartControllerImpl removeCartGoods cartId : " + cart_id);
         cartService.removeCartGoods(cart_id);
-        log.info("카트에서 "+cart_id+" 삭제됨");
+        log.info("카트에서 " + cart_id + " 삭제됨");
         mav.setViewName("redirect:/cart/myCartList.do");
         return mav;
     }
@@ -93,15 +113,15 @@ public class CartControllerImpl implements CartController {
     public @ResponseBody String modifyCartQty(@RequestParam("goodsId") int goods_id, @RequestParam("cartGoodsQty") int cart_goods_qty, HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession();
         memberVO = (MemberVO) session.getAttribute("memberInfo");
-        String member_id=memberVO.getMemberId();
+        String member_id = memberVO.getMemberId();
         cartVO.setGoodsId(goods_id);
         cartVO.setMemberId(member_id);
         cartVO.setCartGoodsQty(cart_goods_qty);
         boolean result = cartService.modifyCartQty(cartVO);
 
-        if(result==true){
+        if (result) {
             return "modifySuccess";
-        }else {
+        } else {
             return "modifyFailed";
         }
     }

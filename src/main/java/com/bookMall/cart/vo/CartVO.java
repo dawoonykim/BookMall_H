@@ -6,9 +6,16 @@ import org.springframework.stereotype.Component;
 public class CartVO {
     private int cartId;
     private int goodsId;
+
     private String memberId;
     private String creDate;
     private int cartGoodsQty;
+
+    private int goodsPrice;
+    private int goodsDeliveryPrice;
+    private int goodsSalesPrice;
+
+
 
     public int getCartId() {
         return cartId;
@@ -49,4 +56,32 @@ public class CartVO {
     public void setCartGoodsQty(int cartGoodsQty) {
         this.cartGoodsQty = cartGoodsQty;
     }
+
+    public int getGoodsPrice() {
+        return goodsPrice;
+    }
+
+    public void setGoodsPrice(int goodsPrice) {
+        this.goodsPrice = goodsPrice;
+    }
+
+    public int getGoodsDeliveryPrice() {
+        return goodsDeliveryPrice;
+    }
+
+    public void setGoodsDeliveryPrice(int goodsDeliveryPrice) {
+        this.goodsDeliveryPrice = goodsDeliveryPrice;
+    }
+
+    public int getGoodsSalesPrice() {
+        return goodsSalesPrice;
+    }
+
+    public void setGoodsSalesPrice(int goodsSalesPrice) {
+        this.goodsSalesPrice = goodsSalesPrice;
+    }
+
+
+
+
 }

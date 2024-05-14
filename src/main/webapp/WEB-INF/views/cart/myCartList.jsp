@@ -8,9 +8,16 @@
 <c:set var="myCartList" value="${cartMap.myCartList}"/>
 <c:set var="myGoodsList" value="${cartMap.myGoodsList}"/>
 
+
+<c:set var="totalGoodsPrice" value="0"/>
 <c:set var="totalGoodsNum" value="0"/> <!--주문 개수 -->
 <c:set var="totalDeliveryPrice" value="0"/> <!-- 총 배송비 -->
 <c:set var="totalDiscountedPrice" value="0"/> <!-- 총 할인금액 -->
+<c:forEach var="item" items="${myGoodsList}">
+    <c:set var="totalGoodsPrice" value="${totalGoodsPrice+item.goodsPrice}"/>
+    <c:set var="totalDeliveryPrice" value="${totalDeliveryPrice+item.goodsDeliveryPrice}"/>
+    <c:set var="totalDiscountedPrice" value="${totalDiscountedPrice+item.goodsPrice-item.goodsPrice*0.9}"/>
+</c:forEach>
 <head>
     <script type="text/javascript">
         function calcGoodsPrice(bookPrice, obj) {
@@ -222,11 +229,11 @@
                     <a href="${contextPath}/goods/goodsDetail.do?goodsId=${item.goodsId }">${item.goodsTitle }</a>
                 </h2>
             </td>
-            <td class="price"><span>${item.goodsPrice }원</span></td>
+            <td class="price"><span>${item.goodsPrice}원</span></td>
             <td>
                 <strong>
-                    <fmt:formatNumber value="${item.goodsSalesPrice}" type="number" var="discounted_price"/>
-                        ${discounted_price}원(10%할인)
+                    <fmt:formatNumber value="${item.goodsPrice*0.9}" type="number" var="discounted_price"/>
+                    <h3>${discounted_price}원</h3>(10%할인)
                 </strong>
             </td>
             <td>
@@ -237,9 +244,9 @@
             </td>
             <td>
                 <strong>
-                    <fmt:formatNumber value="${item.goodsSalesPrice*0.9*cartGoodsQty}" type="number"
-                                      var="total_sales_price"/>
-                        ${total_sales_price}원
+                    <fmt:formatNumber value="${item.goodsPrice*0.9*cartGoodsQty}" type="number"
+                                      var="totalSalesPrice"/>
+                        ${totalSalesPrice}원
                 </strong></td>
             <td>
                 <a href="javascript:fn_order_each_goods('${item.goodsId }','${item.goodsTitle }','${item.goodsSalesPrice}','${item.goodsFileName}');">
@@ -259,7 +266,7 @@
                 </a>
             </td>
     </tr>
-    <c:set var="totalGoodsPrice" value="${totalGoodsPrice+item.goodsSalesPrice*0.9*cartGoodsQSty }"/>
+    <c:set var="totalGoodsPrice" value="${totalGoodsPrice+item.goodsPrice*0.9*cartGoodsQSty }"/>
     <c:set var="totalGoodsNum" value="${totalGoodsNum+1 }"/>
     </c:forEach>
 
@@ -274,7 +281,55 @@
 
 <table width=80% class="list_view" style="background:#cacaff">
     <tbody>
-
+    <tr  align=center  class="fixed" >
+        <td class="fixed">총 상품수 </td>
+        <td>총 상품금액</td>
+        <td>  </td>
+        <td>총 배송비</td>
+        <td>  </td>
+        <td>총 할인 금액 </td>
+        <td>  </td>
+        <td>최종 결제금액</td>
+    </tr>
+    <tr cellpadding=40  align=center >
+        <td id="">
+            <p id="p_totalGoodsNum">${totalGoodsNum}개 </p>
+            <input id="h_totalGoodsNum"type="hidden" value="${totalGoodsNum}"  />
+        </td>
+        <td>
+            <p id="p_totalGoodsPrice">
+                <fmt:formatNumber  value="${totalGoodsPrice}" type="number" var="total_goods_price" />
+                ${total_goods_price}원
+            </p>
+            <input id="h_totalGoodsPrice"type="hidden" value="${totalGoodsPrice}" />
+        </td>
+        <td>
+            <img width="25" alt="" src="${contextPath}/resources/image/plus.jpg">
+        </td>
+        <td>
+            <p id="p_totalDeliveryPrice">${totalDeliveryPrice }원  </p>
+            <input id="h_totalDeliveryPrice"type="hidden" value="${totalDeliveryPrice}" />
+        </td>
+        <td>
+            <img width="25" alt="" src="${contextPath}/resources/image/minus.jpg">
+        </td>
+        <td>
+            <p id="p_totalSalesPrice">
+                ${totalDiscountedPrice}원
+            </p>
+            <input id="h_totalSalesPrice"type="hidden" value="${totalSalesPrice}" />
+        </td>
+        <td>
+            <img width="25" alt="" src="${contextPath}/resources/image/equal.jpg">
+        </td>
+        <td>
+            <p id="p_final_totalPrice">
+                <fmt:formatNumber  value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" type="number" var="total_price" />
+                ${total_price}원
+            </p>
+            <input id="h_final_totalPrice" type="hidden" value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" />
+        </td>
+    </tr>
     </tbody>
 </table>
 <center>
