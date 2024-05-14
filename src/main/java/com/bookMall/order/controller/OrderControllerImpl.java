@@ -84,7 +84,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
         log.info("OrderControllerImpl orderAllCartGoods myOrderList : " + myOrderList);
 
         List<GoodsVO> myGoodsList = (List<GoodsVO>) cartMap.get("myGoodsList");
-        log.info("OrderControllerImpl orderAllCartGoods myGoodsList : " + myGoodsList);
+        log.info("OrderControllerImpl orderAllCartGoods myGoodsList : " + myGoodsList.toString());
         MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
         log.info("OrderControllerImpl orderAllCartGoods memberVO : " + memberVO.getMemberId() + " " + memberVO.getMemberPw() + " " + memberVO.getMemberName());
         for (int i = 0; i < cartGoodsQty.length; i++) {
@@ -98,13 +98,23 @@ public class OrderControllerImpl extends BaseController implements OrderControll
                     OrderVO orderVO1 = new OrderVO();
                     String goods_title = goodsVO.getGoodsTitle();
                     log.info("OrderControllerImpl orderAllCartGoods goods_title : " + goods_title);
+                    int goods_price=goodsVO.getGoodsPrice();
+                    log.info("OrderControllerImpl orderAllCartGoods goods_price : " + goods_price);
+                    int goods_delivery_price=goodsVO.getGoodsDeliveryPrice();
+                    log.info("OrderControllerImpl orderAllCartGoods goods_delivery_price : " + goods_delivery_price);
+                    int goods_point=goodsVO.getGoodsPoint();
+                    log.info("OrderControllerImpl orderAllCartGoods goods_point : " + goods_point);
                     int goods_sales_price = goodsVO.getGoodsSalesPrice();
                     log.info("OrderControllerImpl orderAllCartGoods goods_sales_price : " + goods_sales_price);
                     String goods_fileName = goodsVO.getGoodsFileName();
                     log.info("OrderControllerImpl orderAllCartGoods goods_fileName : " + goods_fileName);
+
                     orderVO1.setGoodsId(goods_id);
                     orderVO1.setGoodsTitle(goods_title);
                     orderVO1.setGoodsSalesPrice(goods_sales_price);
+                    orderVO1.setGoodsPrice(goods_price);
+                    orderVO1.setGoodsPoint(goods_point);
+                    orderVO1.setGoodsDeliveryPrice(goods_delivery_price);
                     orderVO1.setGoodsFileName(goods_fileName);
                     orderVO1.setOrderGoodsQty(Integer.parseInt(cart_goods[1]));
                     myOrderList.add(orderVO1);

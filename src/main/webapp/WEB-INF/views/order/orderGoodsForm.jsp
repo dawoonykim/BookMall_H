@@ -521,17 +521,17 @@
             </td>
             <td>
                 <h2>
-                    <a href="${pageContext.request.contextPath}/goods/goods.do?goodsId=${item.goodsId }">${item.goodsTitle }</A>
+                    <a href="${pageContext.request.contextPath}/goods/goodsDetail.do?goodsId=${item.goodsId }">${item.goodsTitle }</A>
                     <input type="hidden" id="h_goods_title" name="h_goods_title" value="${item.goodsTitle }"/>
                 </h2>
             </td>
             <td>
-                <h2>${item.orderGoodsQty }개<h2>
-                    <input type="hidden" id="h_order_goods_qty" name="h_order_goods_qty" value="${item.orderGoodsQty}"/>
+                <h2>${item.orderGoodsQty }개</h2>
+                <input type="hidden" id="h_order_goods_qty" name="h_order_goods_qty" value="${item.orderGoodsQty}"/>
             </td>
             <td><h2>${item.goodsSalesPrice}원 (10% 할인)</h2></td>
             <td><h2>0원</h2></td>
-            <td><h2>${1500 *item.orderGoodsQty}원</h2></td>
+            <td><h2>${item.goods_point *item.orderGoodsQty}원</h2></td>
             <td>
                 <h2>${item.goodsSalesPrice * item.orderGoodsQty}원</h2>
                 <input type="hidden" id="h_each_goods_price" name="h_each_goods_price"
@@ -999,6 +999,8 @@
             </div>
             <div class="clear"></div>
             <br>
-
+        </div>
+    </div>
+</center>
 
 

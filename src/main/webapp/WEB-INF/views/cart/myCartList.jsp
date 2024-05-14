@@ -146,7 +146,7 @@
         }
 
         function fn_order_all_cart_goods() {
-//	alert("모두 주문하기");
+            //	alert("모두 주문하기");
             var order_goods_qty;
             var order_goods_id;
             var objForm = document.frm_order_all_cart;
@@ -225,13 +225,13 @@
             <td class="price"><span>${item.goodsPrice }원</span></td>
             <td>
                 <strong>
-                    <fmt:formatNumber value="${item.goodsSalesPrice*0.9}" type="number" var="discounted_price"/>
+                    <fmt:formatNumber value="${item.goodsSalesPrice}" type="number" var="discounted_price"/>
                         ${discounted_price}원(10%할인)
                 </strong>
             </td>
             <td>
                 <input type="text" id="cart_goods_qty" name="cart_goods_qty" size=3 value="${cartGoodsQty}"><br>
-                <a href="javascript:modify_cart_qty('${item.goodsId }','${item.goodsSalesPrice*0.9 }','${cnt.count-1 }');">
+                <a href="javascript:modify_cart_qty('${item.goodsId }','${item.goodsSalesPrice }','${cnt.count-1 }');">
                     <img width=25 alt="" src="${contextPath}/resources/image/btn_modify_qty.jpg">
                 </a>
             </td>

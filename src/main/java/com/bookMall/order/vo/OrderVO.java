@@ -38,6 +38,11 @@ public class OrderVO {
     private int goodsQty;
     private int cartGoodsQty;
 
+
+    private int goodsPrice;
+    private int goodsPoint;
+    private int goodsDeliveryPrice;
+
     public int getOrderSeqNum() {
         return orderSeqNum;
     }
@@ -286,4 +291,27 @@ public class OrderVO {
         this.cartGoodsQty = cartGoodsQty;
     }
 
+    public int getGoodsPrice() {
+        return goodsPrice;
+    }
+
+    public void setGoodsPrice(int goodsPrice) {
+        this.goodsPrice = goodsPrice;
+    }
+
+    public int getGoodsPoint() {
+        return goodsPoint;
+    }
+
+    public void setGoodsPoint(int goodsPoint) {
+        this.goodsPoint = goodsPoint;
+    }
+
+    public int getGoodsDeliveryPrice() {
+        return goodsDeliveryPrice;
+    }
+
+    public void setGoodsDeliveryPrice(int goodsDeliveryPrice) {
+        this.goodsDeliveryPrice = goodsDeliveryPrice;
+    }
 }
