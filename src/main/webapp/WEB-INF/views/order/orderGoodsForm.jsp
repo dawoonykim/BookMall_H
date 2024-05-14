@@ -531,7 +531,7 @@
             </td>
             <td><h2>${item.goodsSalesPrice}원 (10% 할인)</h2></td>
             <td><h2>0원</h2></td>
-            <td><h2>${item.goods_point *item.orderGoodsQty}원</h2></td>
+            <td><h2>${item.goodsPoint *item.orderGoodsQty}원</h2></td>
             <td>
                 <h2>${item.goodsSalesPrice * item.orderGoodsQty}원</h2>
                 <input type="hidden" id="h_each_goods_price" name="h_each_goods_price"
