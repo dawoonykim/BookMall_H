@@ -307,7 +307,9 @@
             <img width="25" alt="" src="${contextPath}/resources/image/plus.jpg">
         </td>
         <td>
-            <p id="p_totalDeliveryPrice">${totalDeliveryPrice }원  </p>
+            <p id="p_totalDeliveryPrice">
+                <fmt:formatNumber value="${totalDeliveryPrice}" type="number" var="total_delivery_price"/>
+                ${total_delivery_price }원  </p>
             <input id="h_totalDeliveryPrice"type="hidden" value="${totalDeliveryPrice}" />
         </td>
         <td>
@@ -315,7 +317,8 @@
         </td>
         <td>
             <p id="p_totalSalesPrice">
-                ${totalDiscountedPrice}원
+                <fmt:formatNumber value="${totalDiscountedPrice}" type="number" var="total_discounted_price"/>
+                ${total_discounted_price}원
             </p>
             <input id="h_totalSalesPrice"type="hidden" value="${totalSalesPrice}" />
         </td>
