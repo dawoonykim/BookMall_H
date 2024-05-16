@@ -14,8 +14,7 @@ public class CartVO {
     private int goodsPrice;
     private int goodsDeliveryPrice;
     private int goodsSalesPrice;
-
-
+    private int goodsPoint;
 
     public int getCartId() {
         return cartId;
@@ -81,7 +80,11 @@ public class CartVO {
         this.goodsSalesPrice = goodsSalesPrice;
     }
 
+    public int getGoodsPoint() {
+        return goodsPoint;
+    }
 
-
-
+    public void setGoodsPoint(int goodsPoint) {
+        this.goodsPoint = goodsPoint;
+    }
 }

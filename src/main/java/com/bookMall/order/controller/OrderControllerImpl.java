@@ -42,7 +42,8 @@ public class OrderControllerImpl extends BaseController implements OrderControll
         String action = (String) session.getAttribute("action");
         log.info("OrderControllerImpl orderEachGoods action : " + action);
         if (isLogOn == null || isLogOn == false) {
-            session.setAttribute("orderInfo", order_VO);
+            orderVO=order_VO;
+            session.setAttribute("orderInfo", orderVO);
             session.setAttribute("action", "/order/orderEachGoods.do");
             return new ModelAndView("redirect:/member/loginForm.do");
         } else {
@@ -53,6 +54,14 @@ public class OrderControllerImpl extends BaseController implements OrderControll
                 orderVO = order_VO;
             }
         }
+
+        int goodsPoint = orderVO.getGoodsPoint();
+        int goodsPrice = orderVO.getGoodsPrice();
+        int goodsDeliveryPrice = orderVO.getGoodsDeliveryPrice();
+
+        log.info("OrderControllerImpl orderEachGoods goodsPrice : " + goodsPrice);
+        log.info("OrderControllerImpl orderEachGoods goodsDeliveryPrice : " + goodsDeliveryPrice);
+        log.info("OrderControllerImpl orderEachGoods goodsPoint : " + goodsPoint);
 
         String viewName = (String) request.getAttribute("viewName");
         log.info("OrderControllerImpl orderEachGoods viewName : " + viewName);
@@ -98,11 +107,11 @@ public class OrderControllerImpl extends BaseController implements OrderControll
                     OrderVO orderVO1 = new OrderVO();
                     String goods_title = goodsVO.getGoodsTitle();
                     log.info("OrderControllerImpl orderAllCartGoods goods_title : " + goods_title);
-                    int goodsPrice=goodsVO.getGoodsPrice();
+                    int goodsPrice = goodsVO.getGoodsPrice();
                     log.info("OrderControllerImpl orderAllCartGoods goods_price : " + goodsPrice);
-                    int goodsDeliveryPrice=goodsVO.getGoodsDeliveryPrice();
+                    int goodsDeliveryPrice = goodsVO.getGoodsDeliveryPrice();
                     log.info("OrderControllerImpl orderAllCartGoods goods_delivery_price : " + goodsDeliveryPrice);
-                    int goodsPoint=goodsVO.getGoodsPoint();
+                    int goodsPoint = goodsVO.getGoodsPoint();
                     log.info("OrderControllerImpl orderAllCartGoods goods_point : " + goodsPoint);
                     int goodsSalesPrice = goodsVO.getGoodsSalesPrice();
                     log.info("OrderControllerImpl orderAllCartGoods goods_sales_price : " + goodsSalesPrice);

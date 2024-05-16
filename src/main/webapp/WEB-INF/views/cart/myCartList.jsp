@@ -229,7 +229,8 @@
                     <a href="${contextPath}/goods/goodsDetail.do?goodsId=${item.goodsId }">${item.goodsTitle }</a>
                 </h2>
             </td>
-            <td class="price"><span>${item.goodsPrice}원</span></td>
+            <td class="price"><span>
+                    <fmt:formatNumber value="${item.goodsPrice}" type="number" var="goods_price"/>${goods_price}원</span></td>
             <td>
                 <strong>
                     <fmt:formatNumber value="${item.goodsPrice*0.9}" type="number" var="discounted_price"/>

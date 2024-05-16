@@ -537,11 +537,11 @@
                 <h2>${item.orderGoodsQty }개</h2>
                 <input type="hidden" id="h_order_goods_qty" name="h_order_goods_qty" value="${item.orderGoodsQty}"/>
             </td>
-                <td><h2><fmt:formatNumber value="${item.goodsPrice*0.9}" type="currency" currencySymbol=""/>원</h2>(10% 할인)</td>
-                <td><h2>${item.goodsDeliveryPrice}원</h2></td>
-            <td><h2>${item.goodsPoint *item.orderGoodsQty}원</h2></td>
+                <td><h2><fmt:formatNumber value="${item.goodsPrice*0.9}" type="number"/>원</h2>(10% 할인)</td>
+                <td><h2><fmt:formatNumber value="${item.goodsDeliveryPrice}" type="number"/>원</h2></td>
+            <td><h2><fmt:formatNumber value="${item.goodsPoint *item.orderGoodsQty}" type="number"/>원</h2></td>
             <td>
-                <h2><fmt:formatNumber value="${item.goodsPrice*0.9 * item.orderGoodsQty}" type="currency" currencySymbol=""/>원</h2>
+                <h2><fmt:formatNumber value="${item.goodsPrice*0.9 * item.orderGoodsQty}" type="number"/>원</h2>
                 <input type="hidden" id="h_each_goods_price" name="h_each_goods_price"
                        value="${item.goodsSalesPrice * item.orderGoodsQty}"/>
             </td>
@@ -780,20 +780,20 @@
                 <c:forEach var="item" items="${myOrderList}">
                     <input id="h_totalDelivery" type="hidden" value="${total_delivery_price+=item.goodsDeliveryPrice}">
                 </c:forEach>
-                <p id="p_totalDelivery"><fmt:formatNumber value="${total_delivery_price}" type="currency" currencySymbol=""/>원</p> <input
+                <p id="p_totalDelivery"><fmt:formatNumber value="${total_delivery_price}" type="number"/>원</p> <input
                     id="h_totalDelivery" type="hidden" value="${total_delivery_price}"/>
 
             </td>
             <td>
                 <img width="25" alt="" src="${pageContext.request.contextPath}/resources/image/minus.jpg"></td>
             <td>
-                <p id="p_totalSalesPrice"><fmt:formatNumber value="${total_discount_price}" type="currency" currencySymbol=""/>원</p>
+                <p id="p_totalSalesPrice"><fmt:formatNumber value="${total_discount_price}" type="number"/>원</p>
                 <input id="h_total_sales_price" type="hidden" value="${total_discount_price}"/>
             </td>
             <td><img width="25" alt="" src="${pageContext.request.contextPath}/resources/image/equal.jpg"></td>
             <td>
                 <p id="p_final_totalPrice">
-                    <font size="15"><fmt:formatNumber value="${final_total_order_price}" type="currency" currencySymbol=""/>원 </font>
+                    <font size="15"><fmt:formatNumber value="${final_total_order_price}" type="number"/>원 </font>
                 </p> <input id="h_final_total_Price" type="hidden" value="${final_total_order_price}"/>
             </td>
         </tr>

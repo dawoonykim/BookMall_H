@@ -13,6 +13,7 @@
         <result property="goodsPrice" column="goods_price"/>
         <result property="goodsDeliveryPrice" column="goods_delivery_price"/>
         <result property="goodsSalesPrice" column="goods_sales_price"/>
+        <result property="goodsPoint" column="goods_point"/>
     </resultMap>
 
     <resultMap id="goodsResult" type="goodsVO">
@@ -33,6 +34,7 @@
         <result property="goodsWriterIntro" column="goods_writer_intro"/>
         <result property="goodsContentsOrder" column="goods_contents_order"/>
         <result property="goodsFileName" column="fileName"/>
+        <result property="goodsPoint" column="goods_point"/>
     </resultMap>
 
     <select id="selectCountInCart" resultType="String" parameterType="CartVO">
@@ -94,6 +96,8 @@
                g.GOODS_POINT          as goodsPoint,
                g.GOODS_PUBLISHER_COMMENT as goodsPublisherComment,
                g.GOODS_RECOMMENDATION as goodsRecommendation,
+               g.GOODS_POINT as goodsPoint,
+               g.GOODS_POINT as goodsPoint,
                d.FILENAME as fileName
         from T_SHOPPING_GOODS g,
              T_GOODS_DETAIL_IMAGE d
