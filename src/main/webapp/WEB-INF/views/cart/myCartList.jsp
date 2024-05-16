@@ -116,9 +116,13 @@
             formObj.submit();
         }
 
-        function fn_order_each_goods(goodsId, goodsTitle, goodsSalesPrice, goodsFileName) {
+        function fn_order_each_goods(goodsId, goodsTitle, goodsSalesPrice, goodsFileName, index) {
             var total_price, final_total_price, _goods_qty;
             var cart_goods_qty = document.getElementById("cart_goods_qty");
+
+            // index 값을 세션에 저장
+            // sessionStorage.setItem("index", index);
+            // console.log("index : ", index);
 
             _order_goods_qty = cart_goods_qty.value; //장바구니에 담긴 개수 만큼 주문한다.
             var formObj = document.createElement("form");
@@ -127,24 +131,28 @@
             var i_goods_sales_price = document.createElement("input");
             var i_fileName = document.createElement("input");
             var i_order_goods_qty = document.createElement("input");
+            var i_index = document.createElement("input"); // index 값을 form 데이터로 전달하기 위한 hidden input
 
             i_goods_id.name = "goodsId";
             i_goods_title.name = "goodsTitle";
             i_goods_sales_price.name = "goodsSalesPrice";
             i_fileName.name = "goodsFileName";
             i_order_goods_qty.name = "orderGoodsQty";
+            i_index.name = "index"; // index 값을 전달하기 위한 input name 설정
 
             i_goods_id.value = goodsId;
             i_order_goods_qty.value = _order_goods_qty;
             i_goods_title.value = goodsTitle;
             i_goods_sales_price.value = goodsSalesPrice;
             i_fileName.value = goodsFileName;
+            i_index.value = index; // index 값을 설정
 
             formObj.appendChild(i_goods_id);
             formObj.appendChild(i_goods_title);
             formObj.appendChild(i_goods_sales_price);
             formObj.appendChild(i_fileName);
             formObj.appendChild(i_order_goods_qty);
+            formObj.appendChild(i_index); // index 값을 form에 추가
 
             document.body.appendChild(formObj);
             formObj.method = "post";
@@ -250,9 +258,10 @@
                         ${totalSalesPrice}원
                 </strong></td>
             <td>
-                <a href="javascript:fn_order_each_goods('${item.goodsId }','${item.goodsTitle }','${item.goodsSalesPrice}','${item.goodsFileName}');">
+                <a href="javascript:fn_order_each_goods('${item.goodsId}', '${item.goodsTitle}', '${item.goodsSalesPrice}', '${item.goodsFileName}', '<c:out value="${cnt.index}" />');">
                     <img width="75" alt="" src="${contextPath}/resources/image/btn_order.jpg">
                 </a><br>
+
                 <a href="#">
                     <img width="75" alt=""
                          src="${contextPath}/resources/image/btn_order_later.jpg">

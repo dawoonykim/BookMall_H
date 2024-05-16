@@ -106,7 +106,6 @@
             }
             console.log("여기까지 도달했습니다2.")
 
-
             var total_price,final_total_price;
             var order_goods_qty=document.getElementById("order_goods_qty");
 

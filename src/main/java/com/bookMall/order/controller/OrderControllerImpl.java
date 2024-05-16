@@ -38,15 +38,13 @@ public class OrderControllerImpl extends BaseController implements OrderControll
         request.setCharacterEncoding("utf-8");
         HttpSession session = request.getSession();
 
-        log.info("OrderControllerImpl orderEachGoods order_VO : " + order_VO.toString());
+//        log.info("OrderControllerImpl orderEachGoods order_VO : " + order_VO.toString());
 
-
-        GoodsVO goodsVO = new GoodsVO();
         Boolean isLogOn = (Boolean) session.getAttribute("isLogOn");
         log.info("OrderControllerImpl orderEachGoods isLogOn : " + isLogOn);
         String action = (String) session.getAttribute("action");
         log.info("OrderControllerImpl orderEachGoods action : " + action);
-        if (isLogOn == null || isLogOn == false) {
+        if (isLogOn == null || !isLogOn) {
             orderVO = order_VO;
             session.setAttribute("orderInfo", orderVO);
             session.setAttribute("action", "/order/orderEachGoods.do");
@@ -60,16 +58,39 @@ public class OrderControllerImpl extends BaseController implements OrderControll
             }
         }
 
-        int goodsPrice = goodsVO.getGoodsPrice();
-        int goodsDeliveryPrice = goodsVO.getGoodsDeliveryPrice();
-        int goodsPoint = goodsVO.getGoodsPoint();
+        int index = 0;
+        int goodsPrice = 0;
+        int goodsDeliveryPrice = 0;
+        int goodsPoint = 0;
+        Map cartMap = (Map) session.getAttribute("cartMap");
 
-        log.info("OrderControllerImpl orderEachGoods orderVO |" + " goodsId : " + orderVO.getGoodsId() + ", goodsPrice : " + goodsVO.getGoodsPrice() + ", goodsDeliveryPrice : " + goodsVO.getGoodsDeliveryPrice() + ", goodsPoint : " + goodsVO.getGoodsPoint());
+        GoodsVO goodsVO = null;
+
+        if (cartMap != null) {
+            List<GoodsVO> myGoodsList = (List<GoodsVO>) cartMap.get("myGoodsList");
+            if (myGoodsList != null && !myGoodsList.isEmpty()) {
+                index = Integer.parseInt(request.getParameter("index"));
+                if (index >= 0 && index < myGoodsList.size()) {
+                    goodsVO = myGoodsList.get(index);
+                    if (goodsVO != null) {
+                        goodsPrice = goodsVO.getGoodsPrice();
+                        goodsDeliveryPrice = goodsVO.getGoodsDeliveryPrice();
+                        goodsPoint = goodsVO.getGoodsPoint();
+                        log.info("OrderControllerImpl orderEachGoods orderVO |" + " orderVO.goodsId : " + orderVO.getGoodsId() + ", goodsPrice : " + goodsVO.getGoodsPrice() + ", goodsDeliveryPrice : " + goodsVO.getGoodsDeliveryPrice() + ", goodsPoint : " + goodsVO.getGoodsPoint());
+                    }
+                }
+            }
+        } else {
+                goodsVO= (GoodsVO) session.getAttribute("goodsInfo");
+                goodsPrice = goodsVO.getGoodsPrice();
+                goodsDeliveryPrice = goodsVO.getGoodsDeliveryPrice();
+                goodsPoint = goodsVO.getGoodsPoint();
+                log.info("OrderControllerImpl orderEachGoods goodsVO |" + " goodsVO.goodsId : " + goodsVO.getGoodsId() + ", goodsPrice : " + goodsVO.getGoodsPrice() + ", goodsDeliveryPrice : " + goodsVO.getGoodsDeliveryPrice() + ", goodsPoint : " + goodsVO.getGoodsPoint());
+        }
 
         log.info("OrderControllerImpl orderEachGoods goodsPrice : " + goodsPrice);
         log.info("OrderControllerImpl orderEachGoods goodsDeliveryPrice : " + goodsDeliveryPrice);
         log.info("OrderControllerImpl orderEachGoods goodsPoint : " + goodsPoint);
-
 
         orderVO.setGoodsPrice(goodsPrice);
         orderVO.setGoodsDeliveryPrice(goodsDeliveryPrice);
