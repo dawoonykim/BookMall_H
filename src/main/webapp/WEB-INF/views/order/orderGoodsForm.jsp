@@ -541,7 +541,8 @@
             <td><h2><fmt:formatNumber value="${item.goodsDeliveryPrice}" type="number"/>원</h2></td>
             <td><h2><fmt:formatNumber value="${item.goodsPoint * item.orderGoodsQty}" type="number"/>원</h2></td>
             <td>
-                <h2><fmt:formatNumber value="${item.goodsPrice*0.9 * item.orderGoodsQty + item.goodsDeliveryPrice}" type="number"/>원</h2>
+                <h2><fmt:formatNumber value="${item.goodsPrice*0.9 * item.orderGoodsQty + item.goodsDeliveryPrice}"
+                                      type="number"/>원</h2>
                 <input type="hidden" id="h_each_goods_price" name="h_each_goods_price"
                        value="${item.goodsSalesPrice * item.orderGoodsQty + item.goodsDeliveryPrice}"/>
             </td>
@@ -771,8 +772,7 @@
                 <input id="h_total_order_goods_qty" type="hidden" value="${total_order_goods_qty}"/>
             </td>
             <td>
-                <p id="p_totalPrice"><fmt:formatNumber value="${total_order_price}" type="currency"
-                                                       currencySymbol=""/>원</p> <input
+                <p id="p_totalPrice"><fmt:formatNumber value="${total_order_price}" type="number"/>원</p> <input
                     id="h_totalPrice" type="hidden" value="${total_order_price}"/>
             </td>
             <td><IMG width="25" alt=""
