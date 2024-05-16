@@ -31,7 +31,6 @@ public class OrderControllerImpl extends BaseController implements OrderControll
     @Autowired
     private OrderVO orderVO;
 
-
     @Override
     @RequestMapping(value = "/orderEachGoods.do")
     public ModelAndView orderEachGoods(@ModelAttribute("orderVO") OrderVO order_VO, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -58,7 +57,6 @@ public class OrderControllerImpl extends BaseController implements OrderControll
             }
         }
 
-        int index = 0;
         int goodsPrice = 0;
         int goodsDeliveryPrice = 0;
         int goodsPoint = 0;
@@ -69,7 +67,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
         if (cartMap != null) {
             List<GoodsVO> myGoodsList = (List<GoodsVO>) cartMap.get("myGoodsList");
             if (myGoodsList != null && !myGoodsList.isEmpty()) {
-                index = Integer.parseInt(request.getParameter("index"));
+                int index = Integer.parseInt(request.getParameter("index"));
                 if (index >= 0 && index < myGoodsList.size()) {
                     goodsVO = myGoodsList.get(index);
                     if (goodsVO != null) {
