@@ -61,14 +61,14 @@
 
     <select id="selectCartList" parameterType="cartVO" resultMap="cartResult">
         <![CDATA[
-        select c.CART_ID        as cartId,
-               c.GOODS_ID       as goodsId,
-               c.MEMBER_ID      as memberId,
-               c.CREDATE        as creDate,
-               c.CART_GOODS_QTY as cartGoodsQty,
-               g.GOODS_PRICE    as goodsPrice,
+        select c.CART_ID              as cartId,
+               c.GOODS_ID             as goodsId,
+               c.MEMBER_ID            as memberId,
+               c.CREDATE              as creDate,
+               c.CART_GOODS_QTY       as cartGoodsQty,
+               g.GOODS_PRICE          as goodsPrice,
                g.GOODS_DELIVERY_PRICE as goodsDeliveryPrice,
-               g.GOODS_POINT as goodsPoint
+               g.GOODS_POINT          as goodsPoint
         from T_SHOPPING_CART c,
              T_SHOPPING_GOODS g
         where MEMBER_ID = #{memberId}
@@ -77,7 +77,8 @@
 
     <select id="selectGoodsList" parameterType="java.util.Map" resultMap="goodsResult">
         <![CDATA[
-          select g.GOODS_ID             as goodsId,
+          select
+               g.GOODS_ID             as goodsId,
                g.GOODS_SORT           as goodsSort,
                g.GOODS_TITLE          as goodsTitle,
                g.GOODS_WRITER         as goodsWriter,

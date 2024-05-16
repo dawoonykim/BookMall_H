@@ -31,18 +31,23 @@ public class OrderControllerImpl extends BaseController implements OrderControll
     @Autowired
     private OrderVO orderVO;
 
+
     @Override
     @RequestMapping(value = "/orderEachGoods.do")
     public ModelAndView orderEachGoods(@ModelAttribute("orderVO") OrderVO order_VO, HttpServletRequest request, HttpServletResponse response) throws Exception {
         request.setCharacterEncoding("utf-8");
         HttpSession session = request.getSession();
 
+        log.info("OrderControllerImpl orderEachGoods order_VO : " + order_VO.toString());
+
+
+        GoodsVO goodsVO = new GoodsVO();
         Boolean isLogOn = (Boolean) session.getAttribute("isLogOn");
         log.info("OrderControllerImpl orderEachGoods isLogOn : " + isLogOn);
         String action = (String) session.getAttribute("action");
         log.info("OrderControllerImpl orderEachGoods action : " + action);
         if (isLogOn == null || isLogOn == false) {
-            orderVO=order_VO;
+            orderVO = order_VO;
             session.setAttribute("orderInfo", orderVO);
             session.setAttribute("action", "/order/orderEachGoods.do");
             return new ModelAndView("redirect:/member/loginForm.do");
@@ -55,13 +60,20 @@ public class OrderControllerImpl extends BaseController implements OrderControll
             }
         }
 
-        int goodsPoint = orderVO.getGoodsPoint();
-        int goodsPrice = orderVO.getGoodsPrice();
-        int goodsDeliveryPrice = orderVO.getGoodsDeliveryPrice();
+        int goodsPrice = goodsVO.getGoodsPrice();
+        int goodsDeliveryPrice = goodsVO.getGoodsDeliveryPrice();
+        int goodsPoint = goodsVO.getGoodsPoint();
+
+        log.info("OrderControllerImpl orderEachGoods orderVO |" + " goodsId : " + orderVO.getGoodsId() + ", goodsPrice : " + goodsVO.getGoodsPrice() + ", goodsDeliveryPrice : " + goodsVO.getGoodsDeliveryPrice() + ", goodsPoint : " + goodsVO.getGoodsPoint());
 
         log.info("OrderControllerImpl orderEachGoods goodsPrice : " + goodsPrice);
         log.info("OrderControllerImpl orderEachGoods goodsDeliveryPrice : " + goodsDeliveryPrice);
         log.info("OrderControllerImpl orderEachGoods goodsPoint : " + goodsPoint);
+
+
+        orderVO.setGoodsPrice(goodsPrice);
+        orderVO.setGoodsDeliveryPrice(goodsDeliveryPrice);
+        orderVO.setGoodsPoint(goodsPoint);
 
         String viewName = (String) request.getAttribute("viewName");
         log.info("OrderControllerImpl orderEachGoods viewName : " + viewName);
