@@ -833,37 +833,36 @@
             </tr>
             <tr id="tr_pay_card">
                 <td>
-                    <strong>카드 선택<strong>:&nbsp;&nbsp;&nbsp;
-                        <select id="card_com_name" name="card_com_name">
-                            <option value="삼성" selected>삼성</option>
-                            <option value="하나SK">하나SK</option>
-                            <option value="현대">현대</option>
-                            <option value="KB">KB</option>
-                            <option value="신한">신한</option>
-                            <option value="롯데">롯데</option>
-                            <option value="BC">BC</option>
-                            <option value="시티">시티</option>
-                            <option value="NH농협">NH농협</option>
-                        </select>
-                        <br><Br>
-                        <strong>할부 기간:<strong> &nbsp;&nbsp;&nbsp;
-                            <select id="card_pay_month" name="card_pay_month">
-                                <option value="일시불" selected>일시불</option>
-                                <option value="2개월">2개월</option>
-                                <option value="3개월">3개월</option>
-                                <option value="4개월">4개월</option>
-                                <option value="5개월">5개월</option>
-                                <option value="6개월">6개월</option>
-                            </select>
-
+                    <strong>카드 선택</strong>:&nbsp;&nbsp;&nbsp;
+                    <select id="card_com_name" name="card_com_name">
+                        <option value="삼성" selected>삼성</option>
+                        <option value="하나SK">하나SK</option>
+                        <option value="현대">현대</option>
+                        <option value="KB">KB</option>
+                        <option value="신한">신한</option>
+                        <option value="롯데">롯데</option>
+                        <option value="BC">BC</option>
+                        <option value="시티">시티</option>
+                        <option value="NH농협">NH농협</option>
+                    </select>
+                    <br><Br>
+                    <strong>할부 기간:</strong> &nbsp;&nbsp;&nbsp;
+                    <select id="card_pay_month" name="card_pay_month">
+                        <option value="일시불" selected>일시불</option>
+                        <option value="2개월">2개월</option>
+                        <option value="3개월">3개월</option>
+                        <option value="4개월">4개월</option>
+                        <option value="5개월">5개월</option>
+                        <option value="6개월">6개월</option>
+                    </select>
                 </td>
             </tr>
             <tr id="tr_pay_phone" style="visibility:hidden">
                 <td>
-                    <strong>휴대폰 번호 입력: <strong>
-                        <input type="text" size="5" value="" id="pay_order_tel1" name="pay_order_tel1"/>-
-                        <input type="text" size="5" value="" id="pay_order_tel2" name="pay_order_tel2"/>-
-                        <input type="text" size="5" value="" id="pay_order_tel3" name="pay_order_tel3"/>
+                    <strong>휴대폰 번호 입력: </strong>
+                    <input type="text" size="5" value="" id="pay_order_tel1" name="pay_order_tel1"/>-
+                    <input type="text" size="5" value="" id="pay_order_tel2" name="pay_order_tel2"/>-
+                    <input type="text" size="5" value="" id="pay_order_tel3" name="pay_order_tel3"/>
                 </td>
             </tr>
             </tbody>
