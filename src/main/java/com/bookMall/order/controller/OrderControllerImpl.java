@@ -79,11 +79,11 @@ public class OrderControllerImpl extends BaseController implements OrderControll
                 }
             }
         } else {
-                goodsVO= (GoodsVO) session.getAttribute("goodsInfo");
-                goodsPrice = goodsVO.getGoodsPrice();
-                goodsDeliveryPrice = goodsVO.getGoodsDeliveryPrice();
-                goodsPoint = goodsVO.getGoodsPoint();
-                log.info("OrderControllerImpl orderEachGoods goodsVO |" + " goodsVO.goodsId : " + goodsVO.getGoodsId() + ", goodsPrice : " + goodsVO.getGoodsPrice() + ", goodsDeliveryPrice : " + goodsVO.getGoodsDeliveryPrice() + ", goodsPoint : " + goodsVO.getGoodsPoint());
+            goodsVO = (GoodsVO) session.getAttribute("goodsInfo");
+            goodsPrice = goodsVO.getGoodsPrice();
+            goodsDeliveryPrice = goodsVO.getGoodsDeliveryPrice();
+            goodsPoint = goodsVO.getGoodsPoint();
+            log.info("OrderControllerImpl orderEachGoods goodsVO |" + " goodsVO.goodsId : " + goodsVO.getGoodsId() + ", goodsPrice : " + goodsVO.getGoodsPrice() + ", goodsDeliveryPrice : " + goodsVO.getGoodsDeliveryPrice() + ", goodsPoint : " + goodsVO.getGoodsPoint());
         }
 
         log.info("OrderControllerImpl orderEachGoods goodsPrice : " + goodsPrice);
@@ -112,7 +112,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 
     @Override
     @RequestMapping(value = "/orderAllCartGoods.do", method = RequestMethod.POST)
-    public ModelAndView orderAllCartGoods(@RequestParam("cart_goods_qty") String[] cartGoodsQty, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ModelAndView orderAllCartGoods(@RequestParam("h_order_each_goods_qty") String hOrderEachGoodsQty, HttpServletRequest request, HttpServletResponse response) throws Exception {
         String viewName = (String) request.getAttribute("viewName");
         log.info("OrderControllerImpl orderAllCartGoods viewName : " + viewName);
         ModelAndView mav = new ModelAndView(viewName);
@@ -127,6 +127,8 @@ public class OrderControllerImpl extends BaseController implements OrderControll
         log.info("OrderControllerImpl orderAllCartGoods myGoodsList : " + myGoodsList.toString());
         MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
         log.info("OrderControllerImpl orderAllCartGoods memberVO : " + memberVO.getMemberId() + " " + memberVO.getMemberPw() + " " + memberVO.getMemberName());
+
+        String [] cartGoodsQty = hOrderEachGoodsQty.split(",");
         for (int i = 0; i < cartGoodsQty.length; i++) {
             String[] cart_goods = cartGoodsQty[i].split(":");
             for (int j = 0; j < myGoodsList.size(); j++) {

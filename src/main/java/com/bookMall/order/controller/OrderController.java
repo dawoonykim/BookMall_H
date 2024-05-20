@@ -12,7 +12,7 @@ import java.util.Map;
 public interface OrderController {
     public ModelAndView orderEachGoods(@ModelAttribute("orderVO") OrderVO order_VO, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-    public ModelAndView orderAllCartGoods(@RequestParam("cartGoodsQty") String[] cartGoodsQty, HttpServletRequest request, HttpServletResponse response) throws Exception;
+    public ModelAndView orderAllCartGoods(@RequestParam("h_order_each_goods_qty") String hOrderEachGoodsQty, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     public ModelAndView payToOrderGoods(@RequestParam Map<String, String> orderMap, HttpServletRequest request, HttpServletResponse response) throws Exception;
 

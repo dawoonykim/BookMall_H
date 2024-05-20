@@ -169,6 +169,7 @@
             var h_order_each_goods_qty = objForm.h_order_each_goods_qty;
             var checked_goods = objForm.checked_goods;
             var length = checked_goods.length;
+            var orderData = [];
 
 
             //alert(length);
@@ -177,23 +178,40 @@
                     if (checked_goods[i].checked == true) {
                         order_goods_id = checked_goods[i].value;
                         order_goods_qty = cart_goods_qty[i].value;
-                        cart_goods_qty[i].value = "";
-                        cart_goods_qty[i].value = order_goods_id + ":" + order_goods_qty;
+                        // cart_goods_qty[i].value = "";
+                        // cart_goods_qty[i].value = order_goods_id + ":" + order_goods_qty;
+
+                        orderData.push(order_goods_id + ":" + order_goods_qty);
                         //alert(select_goods_qty[i].value);
-                        console.log(cart_goods_qty[i].value);
+                        // console.log(cart_goods_qty[i].value);
                     }
                 }
             } else {
                 order_goods_id = checked_goods.value;
                 order_goods_qty = cart_goods_qty.value;
-                cart_goods_qty.value = order_goods_id + ":" + order_goods_qty;
+                // cart_goods_qty.value = order_goods_id + ":" + order_goods_qty;
+                orderData.push(order_goods_id + ":" + order_goods_qty);
                 //alert(select_goods_qty.value);
             }
+
+            if (h_order_each_goods_qty == null) {
+                h_order_each_goods_qty = document.createElement("input");
+                h_order_each_goods_qty.type = "hidden";
+                h_order_each_goods_qty.name = "h_order_each_goods_qty";
+                h_order_each_goods_qty.id = "h_order_each_goods_qty";
+                objForm.appendChild(h_order_each_goods_qty);
+            }
+
+            h_order_each_goods_qty.value = orderData.join(",");
+            // console.log("OrderData : ", h_order_each_goods_qty);
+            console.log("OrderData : ", h_order_each_goods_qty.value);
+
 
             objForm.method = "post";
             objForm.action = "${contextPath}/order/orderAllCartGoods.do";
             objForm.submit();
         }
+
 
     </script>
 </head>
@@ -238,7 +256,8 @@
                 </h2>
             </td>
             <td class="price"><span>
-                    <fmt:formatNumber value="${item.goodsPrice}" type="number" var="goods_price"/>${goods_price}원</span></td>
+                    <fmt:formatNumber value="${item.goodsPrice}" type="number" var="goods_price"/>${goods_price}원</span>
+            </td>
             <td>
                 <strong>
                     <fmt:formatNumber value="${item.goodsPrice*0.9}" type="number" var="discounted_price"/>
@@ -291,27 +310,27 @@
 
 <table width=80% class="list_view" style="background:#cacaff">
     <tbody>
-    <tr  align=center  class="fixed" >
-        <td class="fixed">총 상품수 </td>
+    <tr align=center class="fixed">
+        <td class="fixed">총 상품수</td>
         <td>총 상품금액</td>
-        <td>  </td>
+        <td></td>
         <td>총 배송비</td>
-        <td>  </td>
-        <td>총 할인 금액 </td>
-        <td>  </td>
+        <td></td>
+        <td>총 할인 금액</td>
+        <td></td>
         <td>최종 결제금액</td>
     </tr>
-    <tr cellpadding=40  align=center >
+    <tr cellpadding=40 align=center>
         <td id="">
             <p id="p_totalGoodsNum">${totalGoodsNum}개 </p>
-            <input id="h_totalGoodsNum"type="hidden" value="${totalGoodsNum}"  />
+            <input id="h_totalGoodsNum" type="hidden" value="${totalGoodsNum}"/>
         </td>
         <td>
             <p id="p_totalGoodsPrice">
-                <fmt:formatNumber  value="${totalGoodsPrice}" type="number" var="total_goods_price" />
+                <fmt:formatNumber value="${totalGoodsPrice}" type="number" var="total_goods_price"/>
                 ${total_goods_price}원
             </p>
-            <input id="h_totalGoodsPrice"type="hidden" value="${totalGoodsPrice}" />
+            <input id="h_totalGoodsPrice" type="hidden" value="${totalGoodsPrice}"/>
         </td>
         <td>
             <img width="25" alt="" src="${contextPath}/resources/image/plus.jpg">
@@ -319,8 +338,8 @@
         <td>
             <p id="p_totalDeliveryPrice">
                 <fmt:formatNumber value="${totalDeliveryPrice}" type="number" var="total_delivery_price"/>
-                ${total_delivery_price }원  </p>
-            <input id="h_totalDeliveryPrice"type="hidden" value="${totalDeliveryPrice}" />
+                ${total_delivery_price }원 </p>
+            <input id="h_totalDeliveryPrice" type="hidden" value="${totalDeliveryPrice}"/>
         </td>
         <td>
             <img width="25" alt="" src="${contextPath}/resources/image/minus.jpg">
@@ -330,17 +349,19 @@
                 <fmt:formatNumber value="${totalDiscountedPrice}" type="number" var="total_discounted_price"/>
                 ${total_discounted_price}원
             </p>
-            <input id="h_totalSalesPrice"type="hidden" value="${totalSalesPrice}" />
+            <input id="h_totalSalesPrice" type="hidden" value="${totalSalesPrice}"/>
         </td>
         <td>
             <img width="25" alt="" src="${contextPath}/resources/image/equal.jpg">
         </td>
         <td>
             <p id="p_final_totalPrice">
-                <fmt:formatNumber  value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" type="number" var="total_price" />
+                <fmt:formatNumber value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" type="number"
+                                  var="total_price"/>
                 ${total_price}원
             </p>
-            <input id="h_final_totalPrice" type="hidden" value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" />
+            <input id="h_final_totalPrice" type="hidden"
+                   value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}"/>
         </td>
     </tr>
     </tbody>
