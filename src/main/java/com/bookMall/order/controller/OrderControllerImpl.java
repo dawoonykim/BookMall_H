@@ -64,27 +64,32 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 
         GoodsVO goodsVO = null;
 
-        if (cartMap != null) {
-            List<GoodsVO> myGoodsList = (List<GoodsVO>) cartMap.get("myGoodsList");
-            if (myGoodsList != null && !myGoodsList.isEmpty()) {
-                int index = Integer.parseInt(request.getParameter("index"));
-                if (index >= 0 && index < myGoodsList.size()) {
-                    goodsVO = myGoodsList.get(index);
-                    if (goodsVO != null) {
-                        goodsPrice = goodsVO.getGoodsPrice();
-                        goodsDeliveryPrice = goodsVO.getGoodsDeliveryPrice();
-                        goodsPoint = goodsVO.getGoodsPoint();
-                        log.info("OrderControllerImpl orderEachGoods orderVO |" + " orderVO.goodsId : " + orderVO.getGoodsId() + ", goodsPrice : " + goodsVO.getGoodsPrice() + ", goodsDeliveryPrice : " + goodsVO.getGoodsDeliveryPrice() + ", goodsPoint : " + goodsVO.getGoodsPoint());
-                    }
-                }
-            }
-        } else {
+        String indexStr = request.getParameter("index");
+
+        if (indexStr == null) {
             goodsVO = (GoodsVO) session.getAttribute("goodsInfo");
             goodsPrice = goodsVO.getGoodsPrice();
             goodsDeliveryPrice = goodsVO.getGoodsDeliveryPrice();
             goodsPoint = goodsVO.getGoodsPoint();
             log.info("OrderControllerImpl orderEachGoods goodsVO |" + " goodsVO.goodsId : " + goodsVO.getGoodsId() + ", goodsPrice : " + goodsVO.getGoodsPrice() + ", goodsDeliveryPrice : " + goodsVO.getGoodsDeliveryPrice() + ", goodsPoint : " + goodsVO.getGoodsPoint());
+        } else {
+            if (cartMap != null) {
+                List<GoodsVO> myGoodsList = (List<GoodsVO>) cartMap.get("myGoodsList");
+                if (myGoodsList != null && !myGoodsList.isEmpty()) {
+                    int index = Integer.parseInt(indexStr);
+                    if (index >= 0 && index < myGoodsList.size()) {
+                        goodsVO = myGoodsList.get(index);
+                        if (goodsVO != null) {
+                            goodsPrice = goodsVO.getGoodsPrice();
+                            goodsDeliveryPrice = goodsVO.getGoodsDeliveryPrice();
+                            goodsPoint = goodsVO.getGoodsPoint();
+                            log.info("OrderControllerImpl orderEachGoods orderVO |" + " orderVO.goodsId : " + orderVO.getGoodsId() + ", goodsPrice : " + goodsVO.getGoodsPrice() + ", goodsDeliveryPrice : " + goodsVO.getGoodsDeliveryPrice() + ", goodsPoint : " + goodsVO.getGoodsPoint());
+                        }
+                    }
+                }
+            }
         }
+
 
         log.info("OrderControllerImpl orderEachGoods goodsPrice : " + goodsPrice);
         log.info("OrderControllerImpl orderEachGoods goodsDeliveryPrice : " + goodsDeliveryPrice);
@@ -128,7 +133,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
         MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
         log.info("OrderControllerImpl orderAllCartGoods memberVO : " + memberVO.getMemberId() + " " + memberVO.getMemberPw() + " " + memberVO.getMemberName());
 
-        String [] cartGoodsQty = hOrderEachGoodsQty.split(",");
+        String[] cartGoodsQty = hOrderEachGoodsQty.split(",");
         for (int i = 0; i < cartGoodsQty.length; i++) {
             String[] cart_goods = cartGoodsQty[i].split(":");
             for (int j = 0; j < myGoodsList.size(); j++) {
