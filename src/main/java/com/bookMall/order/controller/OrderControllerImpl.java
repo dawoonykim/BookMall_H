@@ -62,7 +62,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
         int goodsPoint = 0;
         Map cartMap = (Map) session.getAttribute("cartMap");
 
-        GoodsVO goodsVO = null;
+        GoodsVO goodsVO;
 
         String indexStr = request.getParameter("index");
 
